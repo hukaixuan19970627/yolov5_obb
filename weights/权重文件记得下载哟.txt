@@ -1,0 +1,1 @@
+yolov5原始权重文件以及YOLOv5_DOTA_OBB——150epoch权重文件请在release中下载。
