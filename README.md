@@ -35,8 +35,7 @@ $   python setup.py build_ext --inplace
 
 ## More detailed explanation
 想要了解相关实现的细节和原理可以看我的知乎文章;    
-[DOTA遥感数据集以及相关工具DOTA_devkit的整理(踩坑记录)](https://zhuanlan.zhihu.com/p/355862906);    
-[DOTA数据格式转YOLO数据格式工具(cv2.minAreaRect踩坑记录)](https://zhuanlan.zhihu.com/p/356416158);
+[YOLOv5_DOTAv1.5(遥感旋转目标检测，全踩坑记录)](https://zhuanlan.zhihu.com/p/357992219);    
 
 
 ## Usage Example
@@ -64,7 +63,9 @@ $  classid    x_c   y_c   longside   shortside    Θ    Θ∈[0, 180)
 
 * All same as [ultralytics/yolov5](https://github.com/ultralytics/yolov5).
 
-![train_batch0](train_batch0.jpg)
+![train_batch_mosaic0](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/train_batch0.jpg)
+![train_batch_mosaic1](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/train_batch1.jpg)
+![train_batch_mosaic2](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/train_batch2.jpg)
 
 
 `3.` `'detect.py'` 
@@ -74,9 +75,9 @@ $  classid    x_c   y_c   longside   shortside    Θ    Θ∈[0, 180)
 ```
 $  python detect.py
 ```
-![detection_result_before_merge1](P0019__1__0___0.png)
-![detection_result_before_merge2](P0019__1__0___824.png)
-![draw_detection_result](P1478__1__853___824.png)
+![detection_result_before_merge1](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/P0004__1__0___0.png)
+![detection_result_before_merge2](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/P0004__1__0___440.png)
+![draw_detection_result](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/P1478__1__853___824.png)
 
 
 
@@ -103,7 +104,7 @@ draw_DOTA_image
 $  python evaluation.py
 ```
 
-![detection_result_after_merge](P0019_.png)
+![detection_result_after_merge](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/P0004_.png)
 
 
 ## 有问题反馈
