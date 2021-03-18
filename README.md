@@ -4,7 +4,13 @@ YOLOv5 in DOTA_OBB dataset with CSL_label.(Oriented Object Detection)
 
 ## Datasets and pretrained checkpoint
 * `Datasets` : [DOTA](https://link.zhihu.com/?target=http%3A//captain.whu.edu.cn/DOTAweb/)
-* `Pretrained Checkpoint` : 
+* `Pretrained Checkpoint or Demo Files` : 
+    * [detect_and_evaluate_demo_files](https://pan.baidu.com/s/1nBIY12sycwI7CtzJ_TpiVg).(6666)
+    * [yolov5x.pt](https://pan.baidu.com/s/1pH6EGKZiIyGtoqUe3F8eWQ).(6666)
+    * [yolov5l.pt](https://pan.baidu.com/s/16is2mx879jk9_4RHwcIgKw).(6666)
+    * [yolov5m.pt](https://pan.baidu.com/s/1ZQoxEB-1mtBAk3A-Rt85-A).(6666)
+    * [yolov5s.pt](https://pan.baidu.com/s/1jm7ijb0a3LVkg8P2bkmJnw).(6666)
+    * [YOLOv5_DOTAv1.5_OBB.pt](https://pan.baidu.com/s/1Ly95O2rBfXjbkuwsZkvnbA).(6666)
 
 ## Fuction
 * `train.py`.  Train.
@@ -34,7 +40,7 @@ $   python setup.py build_ext --inplace
 
 
 ## More detailed explanation
-想要了解相关实现的细节和原理可以看我的知乎文章;    
+想要了解相关实现的细节和原理可以看我的知乎文章:   
 [YOLOv5_DOTAv1.5(遥感旋转目标检测，全踩坑记录)](https://zhuanlan.zhihu.com/p/357992219);    
 
 
@@ -70,7 +76,8 @@ $  classid    x_c   y_c   longside   shortside    Θ    Θ∈[0, 180)
 
 `3.` `'detect.py'` 
     
-* Download the demo files [DOTA_demo_view](). Then run the demo. Visualize the detection result and get the result txt files.
+* Download the demo files [detect_and_evaluate_demo_files](https://pan.baidu.com/s/1nBIY12sycwI7CtzJ_TpiVg).(6666). 
+* Then run the demo. Visualize the detection result and get the result txt files.
 
 ```
 $  python detect.py
