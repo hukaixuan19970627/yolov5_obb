@@ -69,9 +69,9 @@ $  classid    x_c   y_c   longside   shortside    Θ    Θ∈[0, 180)
 
 * All same as [ultralytics/yolov5](https://github.com/ultralytics/yolov5).
 
-![train_batch_mosaic0](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/train_batch0.jpg)
-![train_batch_mosaic1](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/train_batch1.jpg)
-![train_batch_mosaic2](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/train_batch2.jpg)
+![train_batch_mosaic0](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/train_batch0.jpg)
+![train_batch_mosaic1](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/train_batch1.jpg)
+![train_batch_mosaic2](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/train_batch2.jpg)
 
 
 `3.` `'detect.py'` 
@@ -82,9 +82,9 @@ $  classid    x_c   y_c   longside   shortside    Θ    Θ∈[0, 180)
 ```
 $  python detect.py
 ```
-![detection_result_before_merge1](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/P0004__1__0___0.png)
-![detection_result_before_merge2](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/P0004__1__0___440.png)
-![draw_detection_result](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/P1478__1__853___824.png)
+![detection_result_before_merge1](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/P0004__1__0___0.png)
+![detection_result_before_merge2](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/P0004__1__0___440.png)
+![draw_detection_result](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/P1478__1__853___824.png)
 
 
 
@@ -111,7 +111,7 @@ draw_DOTA_image
 $  python evaluation.py
 ```
 
-![detection_result_after_merge](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/ReadMe_img/P0004_.png)
+![detection_result_after_merge](https://github.com/hukaixuan19970627/YOLOv5_DOTA_OBB/tree/master/P0004_.png)
 
 
 ## 有问题反馈
