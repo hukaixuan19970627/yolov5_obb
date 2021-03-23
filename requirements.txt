@@ -5,7 +5,7 @@ Cython
 coremltools==4.1
 matplotlib>=3.2.2
 numpy>=1.18.5
-opencv-python>=4.1.2
+opencv-python==4.1.2.30
 onnx==1.8.1
 pandas==1.2.3
 pillow
