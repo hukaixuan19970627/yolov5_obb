@@ -5,7 +5,7 @@ YOLOv5 in DOTA_OBB dataset with CSL_label.(Oriented Object Detection)
 ## Datasets and pretrained checkpoint
 * `Datasets` : [DOTA](https://link.zhihu.com/?target=http%3A//captain.whu.edu.cn/DOTAweb/)
 * `Pretrained Checkpoint or Demo Files` : 
-    * [detect_and_evaluate_demo_files](https://pan.baidu.com/s/1nBIY12sycwI7CtzJ_TpiVg).(6666)
+    * [train,detect_and_evaluate_demo_files](https://pan.baidu.com/s/1nBIY12sycwI7CtzJ_TpiVg).(6666)
     * [yolov5x.pt](https://pan.baidu.com/s/1pH6EGKZiIyGtoqUe3F8eWQ).(6666)
     * [yolov5l.pt](https://pan.baidu.com/s/16is2mx879jk9_4RHwcIgKw).(6666)
     * [yolov5m.pt](https://pan.baidu.com/s/1ZQoxEB-1mtBAk3A-Rt85-A).(6666)
@@ -67,7 +67,15 @@ $  classid    x_c   y_c   longside   shortside    Θ    Θ∈[0, 180)
 
 `2.` `'train.py'` 
 
-* All same as [ultralytics/yolov5](https://github.com/ultralytics/yolov5).
+* All same as [ultralytics/yolov5](https://github.com/ultralytics/yolov5).  You better train demo files first before your custom dataset.
+* Single GPU training:
+```
+$ python train.py  --batch-size 4 --device 0
+```
+* Multi GPU training:  DistributedDataParallel Mode 
+```
+python -m torch.distributed.launch --nproc_per_node 4 train.py --sync-bn --device 0,1,2,3
+```
 
 ![train_batch_mosaic0](./train_batch0.jpg)
 ![train_batch_mosaic1](./train_batch1.jpg)
