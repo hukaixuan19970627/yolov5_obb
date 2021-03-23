@@ -12,8 +12,8 @@ pillow
 PyYAML>=5.3
 scipy>=1.4.1
 tensorboard>=2.2
-torch>=1.6.0
-torchvision>=0.7.0
+torch==1.6.0
+torchvision==0.7.0
 thop==0.0.31-2005241907
 tqdm>=4.41.0
 Shapely==1.7.1
