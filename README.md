@@ -41,7 +41,11 @@ $   python setup.py build_ext --inplace
 
 ## More detailed explanation
 想要了解相关实现的细节和原理可以看我的知乎文章:   
-[YOLOv5_DOTAv1.5(遥感旋转目标检测，全踩坑记录)](https://zhuanlan.zhihu.com/p/357992219);    
+
+* [YOLOv5_DOTAv1.5(遥感旋转目标检测，全踩坑记录)](https://zhuanlan.zhihu.com/p/357992219).
+* [YOLOv5_DOTA无人机/遥感旋转目标检测项目代码（从数据集制作、模型训练、性能评估全套流程）](https://zhuanlan.zhihu.com/p/358072483).
+* [YOLOv5在无人机/遥感场景下做旋转目标检测时进行的适应性改建详解](https://zhuanlan.zhihu.com/p/358441134).
+* [【旋转目标检测】YOLOv5应对无人机/遥感场景相关难点的解决方案](https://zhuanlan.zhihu.com/p/359249077).
 
 
 ## Usage Example
@@ -64,6 +68,7 @@ $  classid    x_c   y_c   longside   shortside    Θ    Θ∈[0, 180)
 * Θ: The angle between the longside and the x-axis(The x-axis rotates clockwise).x轴顺时针旋转遇到最长边所经过的角度
 ```
 `WARNING: IMAGE SIZE MUST MEETS 'HEIGHT = WIDTH'`
+
 ![label_format_demo](./label_format_demo.png)
 
 `2.` `'train.py'` 
@@ -77,6 +82,7 @@ $ python train.py  --batch-size 4 --device 0
 ```
 python -m torch.distributed.launch --nproc_per_node 4 train.py --sync-bn --device 0,1,2,3
 ```
+
 ![train_batch_mosaic0](./train_batch0.jpg)
 ![train_batch_mosaic1](./train_batch1.jpg)
 ![train_batch_mosaic2](./train_batch2.jpg)
@@ -90,6 +96,7 @@ python -m torch.distributed.launch --nproc_per_node 4 train.py --sync-bn --devic
 ```
 $  python detect.py
 ```
+
 ![detection_result_before_merge1](./P0004__1__0___0.png)
 ![detection_result_before_merge2](./P0004__1__0___440.png)
 ![draw_detection_result](./P1478__1__853___824.png)
