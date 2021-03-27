@@ -64,6 +64,7 @@ $  classid    x_c   y_c   longside   shortside    Θ    Θ∈[0, 180)
 * Θ: The angle between the longside and the x-axis(The x-axis rotates clockwise).x轴顺时针旋转遇到最长边所经过的角度
 ```
 `WARNING: IMAGE SIZE MUST MEETS 'HEIGHT = WIDTH'`
+![label_format_demo](./label_format_demo.png)
 
 `2.` `'train.py'` 
 
@@ -76,7 +77,6 @@ $ python train.py  --batch-size 4 --device 0
 ```
 python -m torch.distributed.launch --nproc_per_node 4 train.py --sync-bn --device 0,1,2,3
 ```
-
 ![train_batch_mosaic0](./train_batch0.jpg)
 ![train_batch_mosaic1](./train_batch1.jpg)
 ![train_batch_mosaic2](./train_batch2.jpg)
