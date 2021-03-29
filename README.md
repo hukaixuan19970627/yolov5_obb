@@ -10,7 +10,7 @@ YOLOv5 in DOTA_OBB dataset with CSL_label.(Oriented Object Detection)
     * [yolov5l.pt](https://pan.baidu.com/s/16is2mx879jk9_4RHwcIgKw).(6666)
     * [yolov5m.pt](https://pan.baidu.com/s/1ZQoxEB-1mtBAk3A-Rt85-A).(6666)
     * [yolov5s.pt](https://pan.baidu.com/s/1jm7ijb0a3LVkg8P2bkmJnw).(6666)
-    * [YOLOv5_DOTAv1.5_OBB.pt](https://pan.baidu.com/s/1Ly95O2rBfXjbkuwsZkvnbA).(6666)
+    * [YOLOv5_DOTAv1.5_OBB.pt](https://pan.baidu.com/s/1WSJFwwM5nyWgPLzAV6rp8Q).(6666)
 
 ## Fuction
 * `train.py`.  Train.
