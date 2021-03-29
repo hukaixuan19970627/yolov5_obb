@@ -2050,9 +2050,9 @@ def plot_results_overlay(start=0, stop=0):  # from utils.general import *; plot_
 def plot_results(start=0, stop=0, bucket='', id=(), labels=(), save_dir=''):
     # from utils.general import *; plot_results()
     # Plot training 'results*.txt' as seen in https://github.com/ultralytics/yolov5#reproduce-our-training
-    fig, ax = plt.subplots(2, 5, figsize=(12, 6))
+    fig, ax = plt.subplots(2, 6, figsize=(12, 6))
     ax = ax.ravel()
-    s = ['Box', 'Objectness', 'Classification', 'Precision', 'Recall',
+    s = ['Box', 'Objectness', 'Classification', 'Angle', 'Total_Loss','Precision', 'Recall',
          'val Box', 'val Objectness', 'val Classification', 'mAP@0.5', 'mAP@0.5:0.95']
     if bucket:
         # os.system('rm -rf storage.googleapis.com')
@@ -2064,12 +2064,12 @@ def plot_results(start=0, stop=0, bucket='', id=(), labels=(), save_dir=''):
         files = glob.glob(str(Path(save_dir) / 'results*.txt')) + glob.glob('../../Downloads/results*.txt')
     for fi, f in enumerate(files):
         try:
-            results = np.loadtxt(f, usecols=[2, 3, 4, 8, 9, 12, 13, 14, 10, 11], ndmin=2).T
+            results = np.loadtxt(f, usecols=[2, 3, 4, 5, 6, 8, 9, 12, 13, 14, 10, 11], ndmin=2).T
             n = results.shape[1]  # number of rows
             x = range(start, min(stop, n) if stop else n)
-            for i in range(10):
+            for i in range(12):
                 y = results[i, x]
-                if i in [0, 1, 2, 5, 6, 7]:
+                if i in [0, 1, 2, 3, 4, 7, 8, 9]:
                     y[y == 0] = np.nan  # dont show zero loss values
                     # y /= y[0]  # normalize
                 label = labels[fi] if len(labels) else Path(f).stem
