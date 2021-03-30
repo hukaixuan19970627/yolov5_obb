@@ -2053,7 +2053,7 @@ def plot_results(start=0, stop=0, bucket='', id=(), labels=(), save_dir=''):
     fig, ax = plt.subplots(2, 6, figsize=(12, 6))
     ax = ax.ravel()
     s = ['Box', 'Objectness', 'Classification', 'Angle', 'Total_Loss','Precision', 'Recall',
-         'val Box', 'val Objectness', 'val Classification', 'mAP@0.5', 'mAP@0.5:0.95']
+         'val Box', 'val Objectness', 'val Classification', 'val Angleloss', 'mAP@0.5']
     if bucket:
         # os.system('rm -rf storage.googleapis.com')
         # files = ['https://storage.googleapis.com/%s/results%g.txt' % (bucket, x) for x in id]
@@ -2064,7 +2064,7 @@ def plot_results(start=0, stop=0, bucket='', id=(), labels=(), save_dir=''):
         files = glob.glob(str(Path(save_dir) / 'results*.txt')) + glob.glob('../../Downloads/results*.txt')
     for fi, f in enumerate(files):
         try:
-            results = np.loadtxt(f, usecols=[2, 3, 4, 5, 6, 8, 9, 12, 13, 14, 10, 11], ndmin=2).T
+            results = np.loadtxt(f, usecols=[2, 3, 4, 5, 6, 9, 10, 13, 14, 15, 16, 11], ndmin=2).T
             n = results.shape[1]  # number of rows
             x = range(start, min(stop, n) if stop else n)
             for i in range(12):
