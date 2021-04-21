@@ -22,7 +22,7 @@ YOLOv5 in DOTA_OBB dataset with CSL_label.(Oriented Object Detection)
 
 
 ## Installation  (Linux Recommend, Windows not Recommend)
-`1.` Python 3.8 or later with all requirements.txt dependencies installed, including torch>=1.7. To install run:
+`1.` Python 3.8 with all requirements.txt dependencies installed, including torch==1.6, opencv-python==4.1.2.30, To install run:
 ```
 $   pip install -r requirements.txt
 ```
