@@ -770,12 +770,12 @@ def compute_loss(p, targets, model, csl_label_flag=True):
 
             angle_ = ps[:, class_index:]
             angle_value_, angle_index_ = torch.max(angle_, 1, keepdim=True)  # size都为 (num, 1)
-            riou = torch.from_numpy(rbox_iou(pbox, angle_index_, tbox[i], tangle[i].unsqueeze(1))).cuda()
+            # riou = torch.from_numpy(rbox_iou(pbox, angle_index_, tbox[i], tangle[i].unsqueeze(1))).cuda()
             # Objectness 置信度
             # 根据model.gr设置objectness的标签值
             # tobj.size = (batch_size, 3种scale框, size1, size2, 1) 表示该网格预测的是前景（1）还是背景（0）
             # 使用标签框与预测框的CIoU值来作为该预测框的conf分支的权重系数 detach不参与网络更新  (1.0 - model.gr)为objectness额外的偏移系数
-            tobj[b, a, gj, gi] = (1.0 - model.gr) + model.gr * riou.detach().clamp(0).type(
+            tobj[b, a, gj, gi] = (1.0 - model.gr) + model.gr * iou.detach().clamp(0).type(
                 tobj.dtype)  # iou ratio 与target信息进行匹配 筛选为前景的网格 shape(num)
 
         # 计算objectness的损失  计算score与labels的损失
