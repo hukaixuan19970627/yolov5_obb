@@ -20,7 +20,7 @@ angle_pw: 1.0
 iou_t: 0.20  # IoU training threshold
 anchor_t: 4.0  # anchor-multiple threshold
 # anchors: 0  # anchors per output grid (0 to ignore)
-fl_gamma: 2.0  # focal loss gamma (efficientDet default gamma=1.5)(paper default alpha=0.25 gamma=2.0)
+fl_gamma: 0.0  # focal loss gamma (efficientDet default gamma=1.5)(dangerous parameter, increasing it will drastically push precision down and recall up)
 hsv_h: 0.015  # image HSV-Hue augmentation (fraction)
 hsv_s: 0.7  # image HSV-Saturation augmentation (fraction)
 hsv_v: 0.4  # image HSV-Value augmentation (fraction)
