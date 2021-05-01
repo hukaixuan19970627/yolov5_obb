@@ -312,7 +312,7 @@ def evaluation(detoutput, imageset, annopath, classnames):
         detfile = detpath.format(classname)
         if not (os.path.exists(detfile)):
             skippedClassCount += 1
-            print('测试集中未找到:{:s}'.format(classname))
+            print('This class is not be detected in your dataset: {:s}'.format(classname))
             continue
         rec, prec, ap = voc_eval(detpath,
              annopath,
@@ -356,13 +356,12 @@ if __name__ == '__main__':
     # classnames = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
     #             'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter', ']
 
-    classnames_inVal = ['harbor', 'large-vehicle', 'ship', 'small-vehicle']
     #
     evaluation(
         detoutput='/home/test/Persons/hukaixuan/yolov5_DOTA_OBB/DOTA_demo_view/detection',
         imageset=r'/home/test/Persons/hukaixuan/yolov5_DOTA_OBB/DOTA_demo_view/row_images',
         annopath=r'/home/test/Persons/hukaixuan/yolov5_DOTA_OBB/DOTA_demo_view/row_DOTA_labels/{:s}.txt',
-        classnames=classnames_inVal
+        classnames=classnames
     )
 
     draw_DOTA_image(imgsrcpath=r'/home/test/Persons/hukaixuan/yolov5_DOTA_OBB/DOTA_demo_view/row_images',
