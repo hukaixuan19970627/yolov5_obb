@@ -306,8 +306,14 @@ def evaluation(detoutput, imageset, annopath, classnames):
     #             'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter', ']
     classaps = []
     map = 0
+    skippedClassCount = 0
     for classname in classnames:
         print('classname:', classname)
+        detfile = detpath.format(classname)
+        if not (os.path.exists(detfile)):
+            skippedClassCount += 1
+            print('测试集中未找到:{:s}'.format(classname))
+            continue
         rec, prec, ap = voc_eval(detpath,
              annopath,
              imagesetfile,
@@ -325,7 +331,7 @@ def evaluation(detoutput, imageset, annopath, classnames):
         # plt.ylabel('precision')
         # plt.plot(rec, prec)
        # plt.show()
-    map = map/len(classnames)
+    map = map/(len(classnames)-skippedClassCount)
     print('map:', map)
     classaps = 100*np.array(classaps)
     print('classaps: ', classaps)
