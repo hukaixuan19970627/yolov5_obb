@@ -25,7 +25,7 @@ angle_pw: 0.851
 iou_t: 0.2
 anchor_t: 2.91
 # anchors: 3.63
-fl_gamma: 2.0
+fl_gamma: 0.0
 hsv_h: 0.0138
 hsv_s: 0.664
 hsv_v: 0.464
