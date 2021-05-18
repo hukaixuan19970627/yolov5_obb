@@ -631,10 +631,10 @@ def rbox_iou(box1, theta1, box2, theta2):
     rboxes1 = torch.cat((box1, theta1), 1)
     rboxes2 = torch.cat((box2, theta2), 1)
     for rbox1 in rboxes1:
-        poly = longsideformat2poly(rbox1[0], rbox1[1], rbox1[2], rbox1[3], rbox1[4])
+        poly = longsideformat2poly(rbox1[0], rbox1[1], rbox1[2], rbox1[3], rbox1[4])  # numpy
         polys1.append(polyiou.VectorDouble(poly))
     for rbox2 in rboxes2:
-        poly = longsideformat2poly(rbox2[0], rbox2[1], rbox2[2], rbox2[3], rbox2[4])
+        poly = longsideformat2poly(rbox2[0], rbox2[1], rbox2[2], rbox2[3], rbox2[4])  # numpy
         polys2.append(polyiou.VectorDouble(poly))
     IoUs = []
     for i in range(len(polys1)):
@@ -1145,9 +1145,77 @@ def skewiou(box1, box2,mode='iou',return_coor = False):
         else:
             return inter/union
 
+def py_cpu_nms_poly_fast(dets, scores, thresh):
+    """
+        任意四点poly nms.取出nms后的边框的索引
+        @param dets: shape(detection_num, [poly]) 原始图像中的检测出的目标数量
+        @param scores: shape(detection_num, 1)
+        @param thresh:
+        @return:
+                keep: 经nms后的目标边框的索引
+    """
+    obbs = dets[:, 0:-1]  # (num, [poly])
+    x1 = np.min(obbs[:, 0::2], axis=1)  # (num, 1)
+    y1 = np.min(obbs[:, 1::2], axis=1)  # (num, 1)
+    x2 = np.max(obbs[:, 0::2], axis=1)  # (num, 1)
+    y2 = np.max(obbs[:, 1::2], axis=1)  # (num, 1)
+    areas = (x2 - x1 + 1) * (y2 - y1 + 1)  # (num, 1)
 
+    polys = []
+    for i in range(len(dets)):
+        tm_polygon = polyiou.VectorDouble([dets[i][0], dets[i][1],
+                                            dets[i][2], dets[i][3],
+                                            dets[i][4], dets[i][5],
+                                            dets[i][6], dets[i][7]])
+        polys.append(tm_polygon)
+    order = scores.argsort()[::-1]  # argsort将元素小到大排列 返回索引值 [::-1]即从后向前取元素
 
-def py_cpu_nms_poly(dets, scores,thresh):
+    keep = []
+    while order.size > 0:
+        ovr = []
+        i = order[0]   # 取出当前剩余置信度最大的目标边框的索引
+        keep.append(i)
+        # if order.size == 0:
+        #     break
+        xx1 = np.maximum(x1[i], x1[order[1:]])
+        yy1 = np.maximum(y1[i], y1[order[1:]])
+        xx2 = np.minimum(x2[i], x2[order[1:]])
+        yy2 = np.minimum(y2[i], y2[order[1:]])
+        # w = np.maximum(0.0, xx2 - xx1 + 1)
+        # h = np.maximum(0.0, yy2 - yy1 + 1)
+        w = np.maximum(0.0, xx2 - xx1)
+        h = np.maximum(0.0, yy2 - yy1)
+        hbb_inter = w * h
+        hbb_ovr = hbb_inter / (areas[i] + areas[order[1:]] - hbb_inter)
+        # h_keep_inds = np.where(hbb_ovr == 0)[0]
+        h_inds = np.where(hbb_ovr > 0)[0]
+        tmp_order = order[h_inds + 1]
+        for j in range(tmp_order.size):
+            iou = polyiou.iou_poly(polys[i], polys[tmp_order[j]])
+            hbb_ovr[h_inds[j]] = iou
+            # ovr.append(iou)
+            # ovr_index.append(tmp_order[j])
+
+        # ovr = np.array(ovr)
+        # ovr_index = np.array(ovr_index)
+        # print('ovr: ', ovr)
+        # print('thresh: ', thresh)
+        try:
+            if math.isnan(ovr[0]):
+                pdb.set_trace()
+        except:
+            pass
+        inds = np.where(hbb_ovr <= thresh)[0]
+
+        # order_obb = ovr_index[inds]
+        # print('inds: ', inds)
+        # order_hbb = order[h_keep_inds + 1]
+        order = order[inds + 1]
+        # pdb.set_trace()
+        # order = np.concatenate((order_obb, order_hbb), axis=0).astype(np.int)
+    return keep
+
+def py_cpu_nms_poly(dets, scores, thresh):
     """
     任意四点poly nms.取出nms后的边框的索引
     @param dets: shape(detection_num, [poly]) 原始图像中的检测出的目标数量
@@ -1268,7 +1336,7 @@ def rotate_non_max_suppression(prediction, conf_thres=0.1, iou_thres=0.6, merge=
         for i, box_xy in enumerate(boxes_xy):
             rect = longsideformat2poly(box_xy[0], box_xy[1], box_whthetas[i][0], box_whthetas[i][1], box_whthetas[i][2])
             rects.append(rect)
-        i = np.array(py_cpu_nms_poly(np.array(rects), np.array(scores.cpu()), iou_thres))
+        i = np.array(py_cpu_nms_poly_fast(np.array(rects), np.array(scores.cpu()), iou_thres))
         #i = nms(boxes, scores)  # i为数组，里面存放着boxes中经nms后的索引
 
         if i.shape[0] > max_det:  # limit detections
@@ -1627,12 +1695,12 @@ def plot_one_box(x, img, color=None, label=None, line_thickness=None):
 def longsideformat2poly(x_c, y_c, longside, shortside, theta_longside):
     '''
     trans longside format(x_c, y_c, longside, shortside, θ) θ ∈ [0-179]    to  poly
-    @param x_c: center_x
-    @param y_c: center_y
-    @param longside: 最长边
-    @param shortside: 最短边
-    @param theta_longside: 最长边和x轴逆时针旋转的夹角，逆时针方向角度为负 [0, 180)
-    @return: poly shape(8)
+    @param x_c: center_x   tensor
+    @param y_c: center_y   tensor
+    @param longside: 最长边  tensor
+    @param shortside: 最短边  tensor
+    @param theta_longside: 最长边和x轴逆时针旋转的夹角，逆时针方向角度为负 [0, 180)  tensor
+    @return: poly shape(8)   numpy
     '''
     # Θ:flaot[0-179]  -> (-180,0)
     rect = longsideformat2cvminAreaRect(x_c, y_c, longside, shortside, (theta_longside - 179.9))
@@ -2053,7 +2121,7 @@ def plot_results(start=0, stop=0, bucket='', id=(), labels=(), save_dir=''):
     fig, ax = plt.subplots(2, 6, figsize=(12, 6))
     ax = ax.ravel()
     s = ['Box', 'Objectness', 'Classification', 'Angle', 'Total_Loss','Precision', 'Recall',
-         'val Box', 'val Objectness', 'val Classification', 'val Angleloss', 'mAP@0.5']
+         'val Box', 'val Objectness', 'val Classification', 'mAP@0.5', 'mAP@0.5:0.95']
     if bucket:
         # os.system('rm -rf storage.googleapis.com')
         # files = ['https://storage.googleapis.com/%s/results%g.txt' % (bucket, x) for x in id]
@@ -2064,7 +2132,7 @@ def plot_results(start=0, stop=0, bucket='', id=(), labels=(), save_dir=''):
         files = glob.glob(str(Path(save_dir) / 'results*.txt')) + glob.glob('../../Downloads/results*.txt')
     for fi, f in enumerate(files):
         try:
-            results = np.loadtxt(f, usecols=[2, 3, 4, 5, 6, 9, 10, 13, 14, 15, 16, 11], ndmin=2).T
+            results = np.loadtxt(f, usecols=[2, 3, 4, 5, 6, 8, 9, 12, 13, 14, 10, 11], ndmin=2).T
             n = results.shape[1]  # number of rows
             x = range(start, min(stop, n) if stop else n)
             for i in range(12):
