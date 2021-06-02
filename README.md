@@ -150,5 +150,5 @@ $  python evaluation.py
   
 ```
 ## 更多
-大家也可以参考另一个项目[BossZard/rotation-yolov5](https://github.com/BossZard/rotation-yolov5). , 该项目在比较早的时候就将yolov5用于旋转目标检测，也是本项目的启发之一;
-更多的旋转目标检测器可以参考[SJTU-Thinklab-Det/DOTA-DOAI](https://github.com/SJTU-Thinklab-Det/DOTA-DOAI). 里面有配套论文与开源代码.
+* 大家也可以参考另一个项目[BossZard/rotation-yolov5](https://github.com/BossZard/rotation-yolov5). , 该项目在比较早的时候就将yolov5用于旋转目标检测，也是本项目的启发之一;
+* 更多的旋转目标检测器可以参考[SJTU-Thinklab-Det/DOTA-DOAI](https://github.com/SJTU-Thinklab-Det/DOTA-DOAI). 里面有配套论文与开源代码.
