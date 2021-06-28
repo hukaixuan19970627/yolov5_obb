@@ -148,15 +148,6 @@ def train(hyp, opt, device, tb_writer=None):
         # 不进行预训练，则直接创建并初始化yolo模型
         model = Model(opt.cfg, ch=3, nc=nc).to(device)  # create
 
-    # Freeze
-    #freeze = ['', ]  # parameter names to freeze (full or partial)
-    freeze = ['model.%s.' % x for x in range(10)]  # 冻结带有'model.0.'-'model.9.'的所有参数 即冻结0-9层的backbone
-    if any(freeze):
-        for k, v in model.named_parameters():
-            if any(x in k for x in freeze):
-                print('freezing %s' % k)
-                v.requires_grad = False
-
     # Optimizer
     """
     nbs人为模拟的batch_size; 
@@ -203,6 +194,17 @@ def train(hyp, opt, device, tb_writer=None):
     optimizer.add_param_group({'params': pg2})  # add pg2 (biases)
     logger.info('Optimizer groups: %g .bias, %g conv.weight, %g other' % (len(pg2), len(pg1), len(pg0)))
     del pg0, pg1, pg2
+    
+    
+    # Freeze
+    #freeze = ['', ]  # parameter names to freeze (full or partial)
+    freeze = ['model.%s.' % x for x in range(10)]  # 冻结带有'model.0.'-'model.9.'的所有参数 即冻结0-9层的backbone
+    if any(freeze):
+        for k, v in model.named_parameters():
+            if any(x in k for x in freeze):
+                print('freezing %s' % k)
+                v.requires_grad = False
+                
 
     # 设置学习率衰减，这里为余弦退火方式进行衰减
     # 就是根据以下公式lf,epoch和超参数hyp['lrf']进行衰减
