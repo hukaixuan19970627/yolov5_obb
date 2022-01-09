@@ -5,19 +5,6 @@
 
 The code for the implementation of “[yolov5](https://github.com/ultralytics/yolov5) + [circular Smooth Label](https://arxiv.org/abs/2003.05597v2)”. 
 
-# [Updates](./docs/ChangeLog.md)
-- [2022/1/7] : **Faster and stronger**, some bugs fixed
-
-
-# Installation
-Please refer to ![install.md](./docs/install.md) for installation and dataset preparation.
-
-
-# Getting Started 
-This repo is based on ![yolov5](https://github.com/ultralytics/yolov5). 
-Please see ![GetStart.md](./docs/GetStart.md) for the Oriented Detection basic usage.
-
-
 # Results and Models
 The results on DOTAv1.5_subsize1024_gap200_rate1.0 test-dev set are shown in the table below. (password:yolo)
 
@@ -29,6 +16,18 @@ The results on DOTAv1.5_subsize1024_gap200_rate1.0 test-dev set are shown in the
  
 Note: 
 * All the pre-trained checkpoint about yolov5 can be downloaded in this [link](https://github.com/ultralytics/yolov5/releases/tag/v6.0).
+ 
+# [Updates](./docs/ChangeLog.md)
+- [2022/1/7] : **Faster and stronger**, some bugs fixed
+
+
+# Installation
+Please refer to ![install.md](./docs/install.md) for installation and dataset preparation.
+
+
+# Getting Started 
+This repo is based on ![yolov5](https://github.com/ultralytics/yolov5). 
+Please see ![GetStart.md](./docs/GetStart.md) for the Oriented Detection basic usage.
 
  
 ##  Acknowledgements
