@@ -16,3 +16,5 @@ yolov5m| DOTAv1.5_subsize1024_gap200_rate1.0|75      |3090Ti |15h     |
 |Don't support validation            | ✔     | Support hbb validation in training, which is faster than obb validation|
 |Don't support single class training | ✔     | - 
 |Image must meets Height=Width       | ✔     | - 
+
+4. support obb_nms gpu version.
