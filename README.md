@@ -5,30 +5,33 @@
 
 The code for the implementation of “[yolov5](https://github.com/ultralytics/yolov5) + [circular Smooth Label](https://arxiv.org/abs/2003.05597v2)”. 
 
-# Updates
-- [2022/1/7] : **Faster and stronger**, some bugs fixed. [details](./docs/ChangeLog.md)
+# [Updates](./docs/ChangeLog.md)
+- [2022/1/7] : **Faster and stronger**, some bugs fixed
 
 
 # Installation
 Please refer to ![install.md](./docs/install.md) for installation and dataset preparation.
 
+
 # Getting Started 
 This repo is based on ![yolov5](https://github.com/ultralytics/yolov5). 
 Please see ![GetStart.md](./docs/GetStart.md) for the Oriented Detection basic usage.
 
-# Results and Models
-The results on DOTAv1.5_subsize1024_gap200_rate1.0 test-dev set are shown in the table below(password:yolo). 
 
- | Model<br><sup>(link) |size<br><sup>(pixels) | TTA<br><sup>(multi-scale/<br>rotate testing) | mAP<sup>OBB<br>0.5 | Speed<br><sup>CPU b1<br>(ms)|Speed<br><sup>2080Ti b1<br>(ms) |params<br><sup>(M) |FLOPs<br><sup>@1024 (B) |
- ----          | ---  | ---   | ---   | ---   | ---   | ---   | ---   | ---   |
- |[yolov5m][https://pan.baidu.com/s/17e5cqExBTPxyGmndbL9gwQ]  |1024  | ×     |**73.19**     |-      |-      |21.6   |50.5   |
- |[yolov5m6][] |1024  | ×     |-      |-      |-      |-      | -     | -     |
- |[yolov5m7][] |1024  | ×     |-      |-      |-      |-      | -     | -     |
+# Results and Models
+The results on DOTAv1.5_subsize1024_gap200_rate1.0 test-dev set are shown in the table below. (password:yolo)
+
+ |Model<br><sup>(link) |Size<br><sup>(pixels) | TTA<br><sup>(multi-scale/<br>rotate testing) | mAP<sup>OBB<br>0.5 | Speed<br><sup>CPU b1<br>(ms)|Speed<br><sup>2080Ti b1<br>(ms) |params<br><sup>(M) |FLOPs<br><sup>@1024 (B) 
+ | ----                                                       | ---  | ---   | ---      | ---   | ---   | ---   | ---   
+ |[yolov5m](https://pan.baidu.com/s/17e5cqExBTPxyGmndbL9gwQ)  |1024  | ×     |**73.19** |-      |-      |21.6   |50.5   
+ |[yolov5m6]()                                                |1024  | ×     |-         |-      |-      |-      | -     
+ |[yolov5m7]()                                                |1024  | ×     |-         |-      |-      |-      | -     
  
 Note: 
 * All the pre-trained checkpoint about yolov5 can be downloaded in this [link](https://github.com/ultralytics/yolov5/releases/tag/v6.0).
 
-#  Acknowledgements
+ 
+##  Acknowledgements
 I have used utility functions from other wonderful open-source projects. Espeicially thank the authors of:
 
 * [ultralytics/yolov5](https://github.com/ultralytics/yolov5).
