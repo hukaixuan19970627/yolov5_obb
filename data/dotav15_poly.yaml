@@ -1,0 +1,18 @@
+
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: /media/test/DOTA/DOTAv1.5   # dataset root dir
+train: train_split_1024_gap200/images    # train images (relative to 'path') 
+val: val_split_1024_gap200/images   # val images (relative to 'path') 
+test: test_split_1024/images  # test images (optional)
+
+# Classes
+nc: 16  # number of classes
+names: ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 
+        'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',  
+        'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter', 
+        'container-crane']  # class names
+
+
+# Download script/URL (optional)
+# download: https://ultralytics.com/assets/coco128.zip

@@ -1,0 +1,18 @@
+
+
+# Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
+path: ./dataset # dataset root dir
+train: dataset_demo_rate1.0_split1024_gap200/images #images   # train images (relative to 'path') 
+val: dataset_demo_rate1.0_split1024_gap200/images #images  # val images (relative to 'path') 
+test: dataset_demo_rate1.0_split1024_gap200/images  #images # test images (optional)
+
+# Classes
+nc: 16  # number of classes
+names: ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 
+        'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',  
+        'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter', 
+        'container-crane']  # class names
+
+
+# Download script/URL (optional)
+# download: https://ultralytics.com/assets/coco128.zip

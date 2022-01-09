@@ -1,0 +1,9 @@
+poly_nms.pyx
+poly_nms_kernel.cu
+poly_overlaps.pyx
+poly_overlaps_kernel.cu
+setup.py
+rotation.egg-info/PKG-INFO
+rotation.egg-info/SOURCES.txt
+rotation.egg-info/dependency_links.txt
+rotation.egg-info/top_level.txt
