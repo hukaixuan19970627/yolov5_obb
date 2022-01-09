@@ -6,7 +6,7 @@
 The code for the implementation of “[yolov5](https://github.com/ultralytics/yolov5) + [circular Smooth Label](https://arxiv.org/abs/2003.05597v2)”. 
 
 # Results and Models
-The results on DOTAv1.5_subsize1024_gap200_rate1.0 test-dev set are shown in the table below. (password:yolo)
+The results on **DOTAv1.5_subsize1024_gap200_rate1.0** test-dev set are shown in the table below. (password:yolo)
 
  |Model<br><sup>(link) |Size<br><sup>(pixels) | TTA<br><sup>(multi-scale/<br>rotate testing) | mAP<sup>OBB<br>0.5 | Speed<br><sup>CPU b1<br>(ms)|Speed<br><sup>2080Ti b1<br>(ms) |params<br><sup>(M) |FLOPs<br><sup>@1024 (B) 
  | ----                                                       | ---  | ---   | ---      | ---   | ---   | ---   | ---   
