@@ -4,14 +4,18 @@ This page provides basic usage about yolov5-obb. For installation instructions, 
 
 # Train a model
 
-1. **Prepare custom dataset files**
-1.1 Make sure the labels format is [poly classname diffcult], e.g., (*Note: You can set diffcult=0)
-```
-x1     y1     x2     y2     x3     y3     x4     y4     classname     diffcult
-1686.0 1517.0 1695.0 1511.0 1711.0 1535.0 1700.0 1541.0 large-vehicle 1
-```
+**1. Prepare custom dataset files**
 
-1.2 Split the dataset. (*Note: High resolution image dataset needs to be splited to get better performance in small objects)
+1.1 Make sure the labels format is [poly classname diffcult], e.g., 
+```
+  x1      y1       x2        y2       x3       y3       x4       y4       classname     diffcult
+
+1686.0   1517.0   1695.0   1511.0   1711.0   1535.0   1700.0   1541.0   large-vehicle      1
+```
+**(*Note: You can set diffcult=0)**
+
+
+1.2 Split the dataset. 
 ```shell
 cd yolov5_obb
 python DOTA_devkit/ImgSplit_multi_process.py
@@ -20,8 +24,10 @@ or Use the orignal dataset.
 ```shell
 cd yolov5_obb
 ```
+**(*Note: High resolution image dataset needs to be splited to get better performance in small objects)**
 
-2. **Train**
+
+**2. Train**
 2.1 Train with specified GPUs. (for example with GPU=3)
 
 ```shell
@@ -139,4 +145,4 @@ python detect.py --weights 'runs/train/yolov5m_finetune/weights/best.pt' \
     --img 2048 --device 2 --hide-labels --hide-conf
 ```
 
-*If you want to evaluate the result on DOTA test-dev, please zip the poly format results files and submit it to the  [evaluation server](https://captain-whu.github.io/DOTA/index.html).
+***If you want to evaluate the result on DOTA test-dev, please zip the poly format results files and submit it to the  [evaluation server](https://captain-whu.github.io/DOTA/index.html).**
