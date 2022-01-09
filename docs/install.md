@@ -42,7 +42,8 @@ cd utils/nms_rotated
 python setup.py develop  #or "pip install -v -e ."
 ```
 
-## Install DOTA_devkit. (Custom Install, it's just a tool to split the high resolution image and evaluation the obb)
+## Install DOTA_devkit. 
+**(Custom Install, it's just a tool to split the high resolution image and evaluation the obb)**
 
 ```
 cd yolov5_obb/DOTA_devkit
@@ -65,5 +66,5 @@ parent
 
 ```
 
-Note:
+**Note:**
 * DOTA is a high resolution image dataset, so it must be splited before training to get a better performance.
