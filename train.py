@@ -310,12 +310,14 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
                         x['momentum'] = np.interp(ni, xi, [hyp['warmup_momentum'], hyp['momentum']])
 
             # Multi-scale
-            if opt.multi_scale:
+            if opt.multi_scale and not opt.rect:
                 sz = random.randrange(imgsz * 0.5, imgsz * 1.5 + gs) // gs * gs  # size
-                sf = sz / max(imgs.shape[2:])  # scale factor
+                sf = sz / max(imgs.shape[2:])  # scale factor , img (tensor): (b, 3, height, width)
                 if sf != 1:
-                    ns = [math.ceil(x * sf / gs) * gs for x in imgs.shape[2:]]  # new shape (stretched to gs-multiple)
+                    ns = [math.ceil(x * sf / gs) * gs for x in imgs.shape[2:]]  # new shape (stretched to gs-multiple) [h_new, w_new]
+                    label_ratio = float(ns[0]) / imgs.shape[2]
                     imgs = nn.functional.interpolate(imgs, size=ns, mode='bilinear', align_corners=False)
+                    targets[:, 2:5] *= label_ratio # targets (tensor): (n_targets, [img_index clsid cx cy l s theta gaussian_θ_labels])
 
             # Forward
             with amp.autocast(enabled=cuda):
