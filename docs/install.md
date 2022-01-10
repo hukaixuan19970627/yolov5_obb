@@ -10,6 +10,8 @@ I have tested the following versions of OS and softwares：
 * CUDA: 10.0/10.1/10.2/11.3
 
 ## Install 
+**CUDA Driver Version ≥ CUDA Toolkit Version(runtime version) = torch.version.cuda**
+
 a. Create a conda virtual environment and activate it, e.g.,
 ```
 conda create -n Py39_Torch1.10_cu11.3 python=3.9 -y 
