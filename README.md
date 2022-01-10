@@ -22,12 +22,12 @@ Note:
 
 
 # Installation
-Please refer to ![install.md](./docs/install.md) for installation and dataset preparation.
+Please refer to [install.md](./docs/install.md) for installation and dataset preparation.
 
 
 # Getting Started 
-This repo is based on ![yolov5](https://github.com/ultralytics/yolov5). 
-Please see ![GetStart.md](./docs/GetStart.md) for the Oriented Detection basic usage.
+This repo is based on [yolov5](https://github.com/ultralytics/yolov5). 
+Please see [GetStart.md](./docs/GetStart.md) for the Oriented Detection basic usage.
 
  
 ##  Acknowledgements
