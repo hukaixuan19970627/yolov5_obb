@@ -3,7 +3,7 @@
 ![train_batch0.jpg](./docs/train_batch6.jpg)
 ![results.png](./docs/results.png)
 
-The code for the implementation of “[yolov5](https://github.com/ultralytics/yolov5) + [circular Smooth Label](https://arxiv.org/abs/2003.05597v2)”. 
+The code for the implementation of “[Yolov5](https://github.com/ultralytics/yolov5) + [Circular Smooth Label](https://arxiv.org/abs/2003.05597v2)”. 
 
 # Results and Models
 The results on **DOTAv1.5_subsize1024_gap200_rate1.0** test-dev set are shown in the table below. (password:yolo)
