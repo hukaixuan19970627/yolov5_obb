@@ -1,6 +1,6 @@
 # INSTAllation 
 ## Requirements
-* Windows, Linux(Recommend)
+* Windows(not Recommend), Linux(Recommend)
 * Python 3.7+ 
 * PyTorch ≥ 1.7 
 * CUDA 9.0 or higher
