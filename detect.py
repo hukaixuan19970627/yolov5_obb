@@ -117,7 +117,7 @@ def run(weights=ROOT / 'yolov5s.pt',  # model.pt path(s)
         dt[1] += t3 - t2
 
         # NMS
-        # pred: list*(n, [xylsθ, conf, cls]) θ ∈ [-pi/2, pi/2)
+        # pred: list*(n, [cxcylsθ, conf, cls]) θ ∈ [-pi/2, pi/2)
         pred = non_max_suppression_obb(pred, conf_thres, iou_thres, classes, agnostic_nms, multi_label=True, max_det=max_det)
         dt[2] += time_sync() - t3
 

@@ -206,7 +206,7 @@ def butter_lowpass_filtfilt(data, cutoff=1500, fs=50000, order=5):
     return filtfilt(b, a, data)  # forward-backward filter
 
 
-def output_to_target(output): #list*(n, [xylsθ, conf, cls]) θ ∈ [-pi/2, pi/2)
+def output_to_target(output): #list*(n, [cxcylsθ, conf, cls]) θ ∈ [-pi/2, pi/2)
     # Convert model output to target format [batch_id, class_id, x, y, l, s, theta, conf]
     targets = []
     for i, o in enumerate(output):
