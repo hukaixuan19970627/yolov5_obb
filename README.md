@@ -35,7 +35,8 @@ Please refer to [install.md](./docs/install.md) for installation and dataset pre
 
 # Getting Started 
 This repo is based on [yolov5](https://github.com/ultralytics/yolov5). 
-Please see [GetStart.md](./docs/GetStart.md) for the Oriented Detection basic usage.
+ 
+And this repo has been rebuilt, Please see [GetStart.md](./docs/GetStart.md) for the Oriented Detection latest basic usage.
 
  
 ##  Acknowledgements
