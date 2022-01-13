@@ -16,7 +16,7 @@ The results on **DOTAv1.5_subsize1024_gap200_rate1.0** test-dev set are shown in
 
  
 <details>
-  <summary>Table Notes (click to expand)</summary>
+  <summary>Table Notes (click to expand / **点我看更多**)</summary>
 
 * All checkpoints are trained to 300 epochs with [COCO pre-trained checkpoints](https://github.com/ultralytics/yolov5/releases/tag/v6.0), default settings and hyperparameters.
 * **mAP<sup>test</sup>** values are for single-model single-scale on [DOTAv1.5](https://captain-whu.github.io/DOTA/index.html) dataset.<br>Reproduce by `python val.py --data 'data/dotav15_poly.yaml' --img 1024 --conf 0.01 --iou 0.4 --task 'test' --batch 16 --save-json`
@@ -26,7 +26,7 @@ The results on **DOTAv1.5_subsize1024_gap200_rate1.0** test-dev set are shown in
 </details>
  
 # [Updates](./docs/ChangeLog.md)
-- [2022/1/7] : **Faster and stronger**, some bugs fixed
+- [2022/1/7] : **Faster and stronger**, some bugs fixed, yolov5 base version updated.
 
 
 # Installation
