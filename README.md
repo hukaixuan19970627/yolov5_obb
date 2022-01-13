@@ -10,7 +10,7 @@ The results on **DOTAv1.5_subsize1024_gap200_rate1.0** test-dev set are shown in
 
  |Model<br><sup>(link) |Size<br><sup>(pixels) | TTA<br><sup>(multi-scale/<br>rotate testing) | OBB mAP<sup>test<br><sup>0.5<br>DOTAv1.5 | Speed<br><sup>CPU b1<br>(ms)|Speed<br><sup>2080Ti b1<br>(ms) |Speed<br><sup>2080Ti b16<br>(ms) |params<br><sup>(M) |FLOPs<br><sup>@1024 (B) 
  | ----                                                                                                                                                           | ---  | ---   | ---      | ---   | ---   | ---   | ---   | ---
- |yolov5m [[baidu](https://pan.baidu.com/s/17e5cqExBTPxyGmndbL9gwQ)/[google](https://drive.google.com/file/d/1NMgxcN98cmBg9_nVK4axxqfiq4pYh-as/view?usp=sharing)]  |1024  | ×     |**73.19** |**328.2**      |**16.9**     |**11.3**      |**21.6**   |**50.5**   
+ |yolov5m [[baidu](https://pan.baidu.com/s/1UPNaMuQ_gNce9167FZx8-w)/[google](https://drive.google.com/file/d/1NMgxcN98cmBg9_nVK4axxqfiq4pYh-as/view?usp=sharing)]  |1024  | ×     |**73.19** |**328.2**      |**16.9**     |**11.3**      |**21.6**   |**50.5**   
  |[yolov5m6]()                                                |1024  | ×     |-         |-      |-      |-      |-      | -     
  |[yolov5m7]()                                                |1024  | ×     |-         |-      |-      |-      |-      | -     
 
