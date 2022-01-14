@@ -317,7 +317,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
                     ns = [math.ceil(x * sf / gs) * gs for x in imgs.shape[2:]]  # new shape (stretched to gs-multiple) [h_new, w_new]
                     label_ratio = float(ns[0]) / imgs.shape[2]
                     imgs = nn.functional.interpolate(imgs, size=ns, mode='bilinear', align_corners=False)
-                    targets[:, 2:5] *= label_ratio # targets (tensor): (n_targets, [img_index clsid cx cy l s theta gaussian_θ_labels])
+                    targets[:, 2:6] *= label_ratio # targets (tensor): (n_targets, [img_index clsid cx cy l s theta gaussian_θ_labels])
 
             # Forward
             with amp.autocast(enabled=cuda):
