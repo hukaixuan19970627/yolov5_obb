@@ -28,6 +28,7 @@ cd yolov5_obb
 
 
 **2. Train**
+
 2.1 Train with specified GPUs. (for example with GPU=3)
 
 ```shell
@@ -42,12 +43,12 @@ python -m torch.distributed.launch --nproc_per_node 4 train.py --device 0,1,2,3
 
 2.3 Train the orignal dataset demo.
 ```shell
-python train.py --data 'data/yolov5obb_demo.yaml' 
+python train.py --data 'data/yolov5obb_demo.yaml' --epochs 10 --batch-size 1 --img 1024 --device 0
 ```
 
 2.4 Train the splited dataset demo.
 ```shell
-python train.py --data 'data/yolov5obb_demo_split.yaml' 
+python train.py --data 'data/yolov5obb_demo_split.yaml' --epochs 10 --batch-size 2 --img 1024 --device 0
 ```
 
 # Inferenece with pretrained models. (Splited Dataset)
