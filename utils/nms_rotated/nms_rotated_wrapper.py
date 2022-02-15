@@ -36,6 +36,7 @@ def obb_nms(dets, scores, iou_thr, device_id=None):
             ori_inds = torch.arange(dets_th.size(0)) # 0 ~ n-1
             ori_inds = ori_inds[~too_small]
             dets_th = dets_th[~too_small] # (n_filter, 5)
+            scores = scores[~too_small] 
 
             inds = nms_rotated_ext.nms_rotated(dets_th, scores, iou_thr)
             inds = ori_inds[inds]
