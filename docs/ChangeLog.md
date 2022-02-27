@@ -7,8 +7,8 @@
 
 Model| Training Dataset  | BatchSize | epochs |GPU | Time Cost |OBB mAP<sup>test<br><sup>@0.5| fps |
 ----           | -----                                   | ------ | ----- | ----- | ----- | -----   | ----- |
-yolov5m-old    | DOTAv1.5train_subsize1024_gap200_rate1.0|75      |300    |3090Ti |96h    |68.36    |20     |
-**yolov5m-new**| DOTAv1.5train_subsize1024_gap200_rate1.0|75      |300    |3090Ti |**15h**|**73.19**|**59** |
+yolov5m-old    | DOTAv1.5train_subsize1024_gap200_rate1.0|75      |300    |2080Ti |96h    |68.36    |20     |
+**yolov5m-new**| DOTAv1.5train_subsize1024_gap200_rate1.0|75      |300    |2080Ti |**15h**|**73.19**|**59** |
 
 3. Some Bugs Fixed.
 
