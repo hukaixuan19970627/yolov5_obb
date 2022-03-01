@@ -6,20 +6,20 @@
 The code for the implementation of “[Yolov5](https://github.com/ultralytics/yolov5) + [Circular Smooth Label](https://arxiv.org/abs/2003.05597v2)”. 
 
 # Results and Models
-The results on **DOTAv1.5_subsize1024_gap200_rate1.0** test-dev set are shown in the table below. (**password: yolo**)
+The results on **DOTA_subsize1024_gap200_rate1.0** test-dev set are shown in the table below. (**password: yolo**)
 
- |Model<br><sup>(link) |Size<br><sup>(pixels) | TTA<br><sup>(multi-scale/<br>rotate testing) | OBB mAP<sup>test<br><sup>0.5<br>DOTAv1.5 | Speed<br><sup>CPU b1<br>(ms)|Speed<br><sup>2080Ti b1<br>(ms) |Speed<br><sup>2080Ti b16<br>(ms) |params<br><sup>(M) |FLOPs<br><sup>@1024 (B) 
- | ----                                                                                                                                                           | ---  | ---   | ---      | ---   | ---   | ---   | ---   | ---
- |yolov5m [[baidu](https://pan.baidu.com/s/1UPNaMuQ_gNce9167FZx8-w)/[google](https://drive.google.com/file/d/1NMgxcN98cmBg9_nVK4axxqfiq4pYh-as/view?usp=sharing)]  |1024  | ×     |**73.19** |**328.2**      |**16.9**     |**11.3**      |**21.6**   |**50.5**   
- |[yolov5m6]()                                                |1024  | ×     |-         |-      |-      |-      |-      | -     
- |[yolov5m7]()                                                |1024  | ×     |-         |-      |-      |-      |-      | -     
+ |Model<br><sup>(link) |Size<br><sup>(pixels) | TTA<br><sup>(multi-scale/<br>rotate testing) | OBB mAP<sup>test<br><sup>0.5<br>DOTAv1.0 | OBB mAP<sup>test<br><sup>0.5<br>DOTAv1.5 | OBB mAP<sup>test<br><sup>0.5<br>DOTAv2.0 | Speed<br><sup>CPU b1<br>(ms)|Speed<br><sup>2080Ti b1<br>(ms) |Speed<br><sup>2080Ti b16<br>(ms) |params<br><sup>(M) |FLOPs<br><sup>@1024 (B) 
+ | ----                                                                                                                                                           | ---  | ---   | ---      | ---   | ---   | ---   | ---   | --- | --- | ---
+ |yolov5m [[baidu](https://pan.baidu.com/s/1UPNaMuQ_gNce9167FZx8-w)/[google](https://drive.google.com/file/d/1NMgxcN98cmBg9_nVK4axxqfiq4pYh-as/view?usp=sharing)]  |1024  | ×     |**77.30** |**73.19** | -  |**328.2**      |**16.9**     |**11.3**      |**21.6**   |**50.5**   
+ |[yolov5m6]()                                                |1024  | ×     |-         |-      |-      |-      |-      | -     | -     | -
+ |[yolov5m7]()                                                |1024  | ×     |-         |-      |-      |-      |-      | -     | -     | -     
 
  
 <details>
   <summary>Table Notes (click to expand / **点我看更多**)</summary>
 
 * All checkpoints are trained to 300 epochs with [COCO pre-trained checkpoints](https://github.com/ultralytics/yolov5/releases/tag/v6.0), default settings and hyperparameters.
-* **mAP<sup>test</sup>** values are for single-model single-scale on [DOTAv1.5](https://captain-whu.github.io/DOTA/index.html) dataset.<br>Reproduce by:
+* **mAP<sup>test dota</sup>** values are for single-model single-scale on [DOTA](https://captain-whu.github.io/DOTA/index.html)(1024,1024,200,1.0) dataset.<br>Reproduce Example:
  ```shell
  python val.py --data 'data/dotav15_poly.yaml' --img 1024 --conf 0.01 --iou 0.4 --task 'test' --batch 16 --save-json --name 'dotav15_test_split'
  python tools/TestJson2VocClassTxt.py --json_path 'runs/val/dotav15_test_split/best_obb_predictions.json' --save_path 'runs/val/dotav15_test_split/obb_predictions_Txt'
