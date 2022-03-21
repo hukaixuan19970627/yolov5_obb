@@ -13,6 +13,7 @@ This page provides basic usage about yolov5-obb. For installation instructions, 
 1686.0   1517.0   1695.0   1511.0   1711.0   1535.0   1700.0   1541.0   large-vehicle      1
 ```
 **(*Note: You can set **diffcult=0**)**
+![image](https://user-images.githubusercontent.com/72599120/159213229-b7c2fc5c-b140-4f10-9af8-2cbc405b0cd3.png)
 
 
 1.2 Split the dataset. 
