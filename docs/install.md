@@ -54,19 +54,3 @@ swig -c++ -python polyiou.i
 python setup.py build_ext --inplace
 ```
 
-## Prepare dataset
-```
-parent
-├── yolov5
-└── datasets
-    └── DOTAv1.5
-        ├── train_split_rate1.0_subsize1024_gap200
-        ├── train_split_rate1.0_subsize1024_gap200
-        └── test_split_rate1.0_subsize1024_gap200
-            ├── images
-            └── labelTxt
-
-```
-
-**Note:**
-* DOTA is a high resolution image dataset, so it must be splited before training to get a better performance.
