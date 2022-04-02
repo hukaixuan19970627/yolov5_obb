@@ -27,7 +27,28 @@ cd yolov5_obb
 ```
 **(*Note: High resolution image dataset needs to be splited to get better performance in small objects)**
 
+1.3 Make sure your dataset structure same as:
+```
+parent
+├── yolov5
+└── datasets
+    └── DOTAv1.5
+        ├── train_split_rate1.0_subsize1024_gap200
+        ├── train_split_rate1.0_subsize1024_gap200
+        └── test_split_rate1.0_subsize1024_gap200
+            ├── images
+                 |────1.jpg
+                 |────...
+                 └────10000.jpg
+            ├── labelTxt
+                 |────1.txt
+                 |────...
+                 └────10000.txt
 
+```
+
+**Note:**
+* DOTA is a high resolution image dataset, so it must be splited before training to get a better performance.
 **2. Train**
 
 2.1 Train with specified GPUs. (for example with GPU=3)
