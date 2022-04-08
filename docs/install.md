@@ -1,6 +1,6 @@
 # INSTAllation 
 ## Requirements
-* Windows **(not Recommend)**, Linux **(Recommend)**
+* Linux **(Recommend)**, Windows **(not Recommend, Please refer to this [issue](https://github.com/hukaixuan19970627/yolov5_obb/issues/224) if you have difficulty in generating utils/nms_rotated_ext)**
 * Python 3.7+ 
 * PyTorch ≥ 1.7 
 * CUDA 9.0 or higher
