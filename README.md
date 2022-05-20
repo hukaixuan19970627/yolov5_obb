@@ -61,6 +61,7 @@ I have used utility functions from other wonderful open-source projects. Espeici
 
 ## 有问题反馈
 在使用中有任何问题，建议先按照[install.md](./docs/install.md)检查环境依赖项，再按照[GetStart.md](./docs/GetStart.md)检查使用流程是否正确，善用搜索引擎和github中的issue搜索框，可以极大程度上节省你的时间。
+ 
 若遇到的是新问题，可以用以下联系方式跟我交流，为了提高沟通效率，请尽可能地提供相关信息以便我复现该问题。
 
 * 知乎（@[略略略](https://www.zhihu.com/people/lue-lue-lue-3-92-86)）
