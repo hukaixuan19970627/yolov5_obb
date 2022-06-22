@@ -158,7 +158,7 @@ def run(data,
     iouv = torch.linspace(0.5, 0.95, 10).to(device)  # iou vector for mAP@0.5:0.95
     niou = iouv.numel()
 
-    names = model.names if hasattr(model, 'names') else model.module.names
+    names = {k: v for k, v in enumerate(model.names if hasattr(model, 'names') else model.module.names)}
     # Dataloader
     if not training:
         model.warmup(imgsz=(1, 3, imgsz, imgsz), half=half)  # warmup
@@ -169,9 +169,9 @@ def run(data,
 
     seen = 0
     confusion_matrix = ConfusionMatrix(nc=nc)
-    names = {k: v for k, v in enumerate(model.names if hasattr(model, 'names') else model.module.names)}
+    # names = {k: v for k, v in enumerate(model.names if hasattr(model, 'names') else model.module.names)}
     class_map = coco80_to_coco91_class() if is_coco else list(range(1000))
-    s = ('%20s' + '%11s' * 6) % ('Class', 'Images', 'Labels', 'P', 'R', 'mAP@.5', 'mAP@.5:.95')
+    s = ('%20s' + '%11s' * 6) % ('Class', 'Images', 'Labels', 'P', 'R', 'HBBmAP@.5', '  HBBmAP@.5:.95')
     dt, p, r, f1, mp, mr, map50, map = [0.0, 0.0, 0.0], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
     # loss = torch.zeros(3, device=device)
     loss = torch.zeros(4, device=device)
@@ -203,11 +203,11 @@ def run(data,
         lb = [targets[targets[:, 0] == i, 1:] for i in range(nb)] if save_hybrid else []  # for autolabelling
         t3 = time_sync()
         # out = non_max_suppression(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls)
-        out = non_max_suppression_obb(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls) # list*(n, [cxcylsθ, conf, cls]) θ ∈ [-pi/2, pi/2)
+        out = non_max_suppression_obb(out, conf_thres, iou_thres, labels=lb, multi_label=True, agnostic=single_cls) # list*(n, [xylsθ, conf, cls]) θ ∈ [-pi/2, pi/2)
         dt[2] += time_sync() - t3
 
         # Metrics
-        for si, pred in enumerate(out): # pred (tensor): (n, [cxcylsθ, conf, cls])
+        for si, pred in enumerate(out): # pred (tensor): (n, [xylsθ, conf, cls])
             labels = targets[targets[:, 0] == si, 1:7] # labels (tensor):(n_gt, [clsid cx cy l s theta]) θ[-pi/2, pi/2)
             nl = len(labels)
             tcls = labels[:, 0].tolist() if nl else []  # target class
@@ -335,14 +335,14 @@ def run(data,
 
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default=ROOT / 'data/dotav15_poly.yaml', help='dataset.yaml path')
-    parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'runs/train/yolov5m_finetune/weights/best.pt', help='model.pt path(s)')
-    parser.add_argument('--batch-size', type=int, default=1, help='batch size')
+    parser.add_argument('--data', type=str, default=ROOT / 'data/DroneVehicle_poly.yaml', help='dataset.yaml path')
+    parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'runs/train/yolov5n_DroneVehicle/weights/best.pt', help='model.pt path(s)')
+    parser.add_argument('--batch-size', type=int, default=8, help='batch size')
     parser.add_argument('--imgsz', '--img', '--img-size', type=int, default=1024, help='inference size (pixels)')
     parser.add_argument('--conf-thres', type=float, default=0.01, help='confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.4, help='NMS IoU threshold')
     parser.add_argument('--task', default='val', help='train, val, test, speed or study')
-    parser.add_argument('--device', default='2', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
+    parser.add_argument('--device', default='1', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
     parser.add_argument('--workers', type=int, default=8, help='max dataloader workers (per RANK in DDP mode)')
     parser.add_argument('--single-cls', action='store_true', help='treat as single-class dataset')
     parser.add_argument('--augment', action='store_true', help='augmented inference')
@@ -370,7 +370,7 @@ def main(opt):
     if opt.task in ('train', 'val', 'test'):  # run normally
         # if opt.conf_thres > 0.001:  # https://github.com/ultralytics/yolov5/issues/1466
         if opt.conf_thres > 0.01:  
-            LOGGER.info(f'WARNING: In oriented detection, confidence threshold {opt.conf_thres} >> 0.001 will produce invalid mAP values.')
+            LOGGER.info(f'WARNING: In oriented detection, confidence threshold {opt.conf_thres} >> 0.01 will produce invalid mAP values.')
         run(**vars(opt))
 
     else:

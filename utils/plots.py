@@ -76,11 +76,13 @@ class Annotator:
         self.pil = pil or not is_ascii(example) or is_chinese(example)
         if self.pil:  # use PIL
             self.im = im if isinstance(im, Image.Image) else Image.fromarray(im)
+            self.im_cv2 = im
             self.draw = ImageDraw.Draw(self.im)
             self.font = check_font(font='Arial.Unicode.ttf' if is_chinese(example) else font,
                                    size=font_size or max(round(sum(self.im.size) / 2 * 0.035), 12))
         else:  # use cv2
             self.im = im
+            self.im_cv2 = im
         self.lw = line_width or max(round(sum(im.shape) / 2 * 0.003), 2)  # line width
 
     def box_label(self, box, label='', color=(128, 128, 128), txt_color=(255, 255, 255)):
@@ -109,38 +111,39 @@ class Annotator:
                             thickness=tf, lineType=cv2.LINE_AA)
     
     def poly_label(self, poly, label='', color=(128, 128, 128), txt_color=(255, 255, 255)):
-        if self.pil or not is_ascii(label):
-            self.draw.polygon(xy=poly, outline=color)
-            if label:
-                xmax, xmin, ymax, ymin = max(poly[0::2]), min(poly[0::2]), max(poly[1::2]), min(poly[1::2])
-                x_label, y_label = (xmax + xmin)/2, (ymax + ymin)/2
-                w, h = self.font.getsize(label)  # text width, height
-                outside = ymin - h >= 0  # label fits outside box
-                self.draw.rectangle([x_label,
-                                     y_label - h if outside else y_label,
-                                     x_label + w + 1,
-                                     y_label + 1 if outside else y_label + h + 1], fill=color)
-                self.draw.text((x_label, y_label - h if outside else y_label), label, fill=txt_color, font=self.font)
-        else:
+        # if self.pil or not is_ascii(label):
+        #     self.draw.polygon(xy=poly, outline=color)
+        #     if label:
+        #         xmax, xmin, ymax, ymin = max(poly[0::2]), min(poly[0::2]), max(poly[1::2]), min(poly[1::2])
+        #         x_label, y_label = (xmax + xmin)/2, (ymax + ymin)/2
+        #         w, h = self.font.getsize(label)  # text width, height
+        #         outside = ymin - h >= 0  # label fits outside box
+        #         self.draw.rectangle([x_label,
+        #                              y_label - h if outside else y_label,
+        #                              x_label + w + 1,
+        #                              y_label + 1 if outside else y_label + h + 1], fill=color)
+        #         self.draw.text((x_label, y_label - h if outside else y_label), label, fill=txt_color, font=self.font)
+        # else:
             if isinstance(poly, torch.Tensor):
                 poly = poly.cpu().numpy()
             if isinstance(poly[0], torch.Tensor):
                 poly = [x.cpu().numpy() for x in poly]
             polygon_list = np.array([(poly[0], poly[1]), (poly[2], poly[3]), \
                     (poly[4], poly[5]), (poly[6], poly[7])], np.int32)
-            cv2.drawContours(image=self.im, contours=[polygon_list], contourIdx=-1, color=color, thickness=self.lw)
+            cv2.drawContours(image=self.im_cv2, contours=[polygon_list], contourIdx=-1, color=color, thickness=self.lw)
             if label:
                 tf = max(self.lw - 1, 1)  # font thicknes
                 xmax, xmin, ymax, ymin = max(poly[0::2]), min(poly[0::2]), max(poly[1::2]), min(poly[1::2])
                 x_label, y_label = int((xmax + xmin)/2), int((ymax + ymin)/2)
                 w, h = cv2.getTextSize(label, 0, fontScale=self.lw / 3, thickness=tf)[0]  # text width, height
                 cv2.rectangle(
-                                self.im,
+                                self.im_cv2,
                                 (x_label, y_label),
                                 (x_label + w + 1, y_label + int(1.5*h)),
                                 color, -1, cv2.LINE_AA
                             )
-                cv2.putText(self.im, label, (x_label, y_label + h), 0, self.lw / 3, txt_color, thickness=tf, lineType=cv2.LINE_AA)
+                cv2.putText(self.im_cv2, label, (x_label, y_label + h), 0, self.lw / 3, txt_color, thickness=tf, lineType=cv2.LINE_AA)
+            self.im = self.im_cv2 if isinstance(self.im_cv2, Image.Image) else Image.fromarray(self.im_cv2)
 
     def rectangle(self, xy, fill=None, outline=None, width=1):
         # Add rectangle to image (PIL-only)
@@ -206,7 +209,7 @@ def butter_lowpass_filtfilt(data, cutoff=1500, fs=50000, order=5):
     return filtfilt(b, a, data)  # forward-backward filter
 
 
-def output_to_target(output): #list*(n, [cxcylsθ, conf, cls]) θ ∈ [-pi/2, pi/2)
+def output_to_target(output): #list*(n, [xylsθ, conf, cls]) θ ∈ [-pi/2, pi/2)
     # Convert model output to target format [batch_id, class_id, x, y, l, s, theta, conf]
     targets = []
     for i, o in enumerate(output):
@@ -360,7 +363,7 @@ def plot_val_study(file='', dir='', x=None):  # from utils.plots import *; plot_
         y = np.loadtxt(f, dtype=np.float32, usecols=[0, 1, 2, 3, 7, 8, 9], ndmin=2).T
         x = np.arange(y.shape[1]) if x is None else np.array(x)
         if plot2:
-            s = ['P', 'R', 'mAP@.5', 'mAP@.5:.95', 't_preprocess (ms/img)', 't_inference (ms/img)', 't_NMS (ms/img)']
+            s = ['P', 'R', 'HBBmAP@.5', 'HBBmAP@.5:.95', 't_preprocess (ms/img)', 't_inference (ms/img)', 't_NMS (ms/img)']
             for i in range(7):
                 ax[i].plot(x, y[i], '.-', linewidth=2, markersize=8)
                 ax[i].set_title(s[i])
@@ -465,7 +468,8 @@ def plot_evolve(evolve_csv='path/to/evolve.csv'):  # from utils.plots import *; 
 def plot_results(file='path/to/results.csv', dir=''):
     # Plot training results.csv. Usage: from utils.plots import *; plot_results('path/to/results.csv')
     save_dir = Path(file).parent if file else Path(dir)
-    fig, ax = plt.subplots(2, 5, figsize=(12, 6), tight_layout=True)
+    #fig, ax = plt.subplots(2, 5, figsize=(12, 6), tight_layout=True)
+    fig, ax = plt.subplots(2, 6, figsize=(18, 6), tight_layout=True)
     ax = ax.ravel()
     files = list(save_dir.glob('results*.csv'))
     assert len(files), f'No results.csv files found in {save_dir.resolve()}, nothing to plot.'
@@ -474,7 +478,8 @@ def plot_results(file='path/to/results.csv', dir=''):
             data = pd.read_csv(f)
             s = [x.strip() for x in data.columns]
             x = data.values[:, 0]
-            for i, j in enumerate([1, 2, 3, 4, 5, 8, 9, 10, 6, 7]):
+            #for i, j in enumerate([1, 2, 3, 4, 5, 8, 9, 10, 6, 7]):
+            for i, j in enumerate([1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 7, 8]):
                 y = data.values[:, j]
                 # y[y == 0] = np.nan  # don't show zero values
                 ax[i].plot(x, y, marker='.', label=f.stem, linewidth=2, markersize=8)

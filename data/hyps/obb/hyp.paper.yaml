@@ -16,20 +16,20 @@ obj: 1.0
 obj_pw: 1.0
 iou_t: 0.2
 anchor_t: 4.0
+# anchors: 3.2
 fl_gamma: 0.0
-hsv_h: 0.015
-hsv_s: 0.7
-hsv_v: 0.4
-degrees: 180.0
-translate: 0.1
-scale: 0.25
+hsv_h: 0.0
+hsv_s: 0.0
+hsv_v: 0.0
+degrees: 0.0
+translate: 0.0
+scale: 0.5
 shear: 0.0
 perspective: 0.0
-flipud: 0.5
-fliplr: 0.5
-mosaic: 0.75
-mixup: 0.1
+flipud: 0.0
+fliplr: 0.0
+mosaic: 1.0
+mixup: 1.0
 copy_paste: 0.0
 cls_theta: 180
 csl_radius: 2.0
-

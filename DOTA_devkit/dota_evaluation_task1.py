@@ -278,9 +278,9 @@ def image2txt(srcpath, dstpath):
 
 def parse_args():
     parser = argparse.ArgumentParser(description='MMDet test (and eval) a model')
-    parser.add_argument('--detpath', default='work_dirs/swin_tiny_patch4_window7_dotav2/Task1_results/Task1_{:s}.txt', help='test config file path')
-    parser.add_argument('--annopath', default='data/dataset_demo/labelTxt/{:s}.txt', help='checkpoint file')
-    parser.add_argument('--imagesetfile', default='data/dataset_demo/imgnamefile_demo.txt', help='checkpoint file')
+    parser.add_argument('--detpath', default='runs/val/yolov5t_DroneVehicle_val/splited_obb_prediction_Txt/Task1_{:s}.txt', help='test config file path')
+    parser.add_argument('--annopath', default='/media/test/4d846cae-2315-4928-8d1b-ca6d3a61a3c6/DroneVehicle/val/raw/labelTxt/{:s}.txt', help='checkpoint file')
+    parser.add_argument('--imagesetfile', default='/media/test/4d846cae-2315-4928-8d1b-ca6d3a61a3c6/DroneVehicle/val/raw/imgnamefile.txt', help='checkpoint file')
     args = parser.parse_args()
     return args
 
@@ -290,11 +290,12 @@ def main():
     detpath = args.detpath
     annopath = args.annopath
     imagesetfile = args.imagesetfile
-    
+    # For DroneVehicle
+    classnames=['vehicle']
     # For DOTA-v2.0
-    classnames = [ 'plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship',
-         'tennis-court', 'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor',
-         'swimming-pool', 'helicopter', 'container-crane', 'airport', 'helipad']
+    # classnames = [ 'plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship',
+    #      'tennis-court', 'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor',
+    #      'swimming-pool', 'helicopter', 'container-crane', 'airport', 'helipad']
     # For DOTA-v1.5
     # classnames = ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 'large-vehicle', 'ship', 'tennis-court',
     #             'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter', 'container-crane']
@@ -342,5 +343,6 @@ def main():
     print('classaps: ', classaps)
 if __name__ == '__main__':
     main()
-    # image2txt('dataset/dataset_demo/images', 'dataset/dataset_demo/')
+    # image2txt('/media/test/4d846cae-2315-4928-8d1b-ca6d3a61a3c6/DroneVehicle/val/raw/images', 
+    #           '/media/test/4d846cae-2315-4928-8d1b-ca6d3a61a3c6/DroneVehicle/val/raw/')
     # image2txt('dataset/dataset_demo_rate1.0_split1024_gap200/images', 'dataset/dataset_demo_rate1.0_split1024_gap200/')

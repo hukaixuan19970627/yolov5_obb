@@ -1,0 +1,83 @@
+conf-0.05  
+               Class     Images     Labels          P          R     mAP@.5 mAP@.5:.95: 100%|██████████| 663/663 [07:22<00:00,  1.50it/s]                                    
+                 all       5297     123762      0.764      0.691      0.751      0.488
+               plane       5297       4461      0.937      0.957      0.977      0.769
+    baseball-diamond       5297        354      0.818      0.808      0.843      0.545
+              bridge       5297        790      0.717      0.534      0.615      0.303
+  ground-track-field       5297        212      0.719      0.627      0.677      0.481
+       small-vehicle       5297      73497      0.718       0.65      0.744      0.383
+       large-vehicle       5297      10284      0.824      0.785      0.857      0.642
+                ship       5297      21777        0.9       0.92      0.958      0.685
+        tennis-court       5297       1515      0.961      0.938      0.969      0.879
+    basketball-court       5297        287      0.766      0.767      0.836      0.667
+        storage-tank       5297       4728      0.821      0.659      0.746        0.3
+   soccer-ball-field       5297        241       0.61      0.598      0.613      0.414
+          roundabout       5297        287       0.73      0.564       0.64      0.307
+              harbor       5297       4179      0.863      0.831      0.871      0.531
+       swimming-pool       5297        994      0.762       0.69      0.742      0.364
+          helicopter       5297        128      0.724      0.664      0.727      0.445
+     container-crane       5297         28      0.349     0.0714      0.205        0.1
+Speed: 0.5ms pre-process, 27.7ms inference, 10.3ms NMS per image at shape (8, 3, 1024, 1024)
+
+conf-0.1
+              Class     Images     Labels          P          R     mAP@.5 mAP@.5:.95: 100%|██████████| 663/663 [07:09<00:00,  1.54it/s]                                    
+                 all       5297     123762      0.764      0.691      0.756      0.495
+               plane       5297       4461      0.937      0.957      0.975       0.77
+    baseball-diamond       5297        354      0.818      0.808      0.843      0.549
+              bridge       5297        790      0.717      0.534      0.616      0.308
+  ground-track-field       5297        212      0.719      0.627      0.678      0.489
+       small-vehicle       5297      73497      0.718       0.65      0.745      0.386
+       large-vehicle       5297      10284      0.824      0.785      0.857      0.646
+                ship       5297      21777        0.9       0.92      0.956      0.686
+        tennis-court       5297       1515      0.961      0.938      0.969       0.88
+    basketball-court       5297        287      0.766      0.767      0.839      0.672
+        storage-tank       5297       4728      0.821      0.659      0.746      0.304
+   soccer-ball-field       5297        241       0.61      0.598      0.619      0.422
+          roundabout       5297        287       0.73      0.564      0.636       0.31
+              harbor       5297       4179      0.863      0.831      0.872      0.537
+       swimming-pool       5297        994      0.762       0.69      0.739      0.366
+          helicopter       5297        128      0.724      0.664      0.736      0.454
+     container-crane       5297         28      0.349     0.0714      0.271      0.138
+Speed: 0.5ms pre-process, 28.0ms inference, 10.2ms NMS per image at shape (8, 3, 1024, 1024)
+
+conf-0.15
+               Class     Images     Labels          P          R     mAP@.5 mAP@.5:.95: 100%|██████████| 663/663 [08:07<00:00,  1.36it/s]                                    
+                 all       5297     123762      0.764      0.691      0.756      0.496
+               plane       5297       4461      0.937      0.957      0.975       0.77
+    baseball-diamond       5297        354      0.818      0.808      0.842       0.55
+              bridge       5297        790      0.717      0.534      0.615      0.312
+  ground-track-field       5297        212      0.719      0.627       0.68      0.495
+       small-vehicle       5297      73497      0.718       0.65      0.744      0.389
+       large-vehicle       5297      10284      0.824      0.785      0.856      0.649
+                ship       5297      21777        0.9       0.92      0.954      0.686
+        tennis-court       5297       1515      0.961      0.938      0.968       0.88
+    basketball-court       5297        287      0.766      0.767      0.842      0.676
+        storage-tank       5297       4728      0.821      0.659      0.746      0.306
+   soccer-ball-field       5297        241       0.61      0.598      0.621      0.426
+          roundabout       5297        287       0.73      0.564      0.637       0.31
+              harbor       5297       4179      0.863      0.831      0.871       0.54
+       swimming-pool       5297        994      0.762       0.69      0.736      0.367
+          helicopter       5297        128      0.724      0.664      0.741      0.459
+     container-crane       5297         28      0.349     0.0714      0.268      0.121
+Speed: 0.5ms pre-process, 28.9ms inference, 10.0ms NMS per image at shape (8, 3, 1024, 1024)
+
+conf-0.2
+             Class     Images     Labels          P          R     mAP@.5 mAP@.5:.95: 100%|██████████| 663/663 [06:40<00:00,  1.66it/s]                                    
+                 all       5297     123762      0.764      0.691      0.756      0.497
+               plane       5297       4461      0.937      0.957      0.974       0.77
+    baseball-diamond       5297        354      0.818      0.808      0.841      0.552
+              bridge       5297        790      0.717      0.534      0.613      0.315
+  ground-track-field       5297        212      0.719      0.627      0.678      0.499
+       small-vehicle       5297      73497      0.718       0.65      0.742      0.392
+       large-vehicle       5297      10284      0.824      0.785      0.855      0.651
+                ship       5297      21777        0.9       0.92      0.953      0.687
+        tennis-court       5297       1515      0.961      0.938      0.968      0.881
+    basketball-court       5297        287      0.766      0.767      0.843      0.678
+        storage-tank       5297       4728      0.821      0.659      0.743      0.306
+   soccer-ball-field       5297        241       0.61      0.598      0.627      0.431
+          roundabout       5297        287       0.73      0.564      0.635      0.311
+              harbor       5297       4179      0.863      0.831      0.869      0.541
+       swimming-pool       5297        994      0.762       0.69      0.736      0.369
+          helicopter       5297        128      0.724      0.664      0.747      0.465
+     container-crane       5297         28      0.349     0.0714      0.271      0.105
+Speed: 0.5ms pre-process, 29.0ms inference, 10.1ms NMS per image at shape (8, 3, 1024, 1024)

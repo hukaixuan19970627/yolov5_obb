@@ -7,11 +7,10 @@ val: val_split_1024_gap200/images   # val images (relative to 'path')
 test: test_split_1024/images  # test images (optional)
 
 # Classes
-nc: 16  # number of classes
+nc: 15  # number of classes
 names: ['plane', 'baseball-diamond', 'bridge', 'ground-track-field', 'small-vehicle', 
         'large-vehicle', 'ship', 'tennis-court', 'basketball-court', 'storage-tank',  
-        'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter', 
-        'container-crane']  # class names
+        'soccer-ball-field', 'roundabout', 'harbor', 'swimming-pool', 'helicopter']  # class names
 
 
 # Download script/URL (optional)

@@ -778,7 +778,7 @@ def non_max_suppression_obb(prediction, conf_thres=0.25, iou_thres=0.45, classes
         labels : () or
 
     Returns:
-        list of detections, len=batch_size, on (n,7) tensor per image [cx, cy, l, s, θ, conf, cls] θ ∈ [-pi/2, pi/2)
+        list of detections, len=batch_size, on (n,7) tensor per image [xylsθ, conf, cls] θ ∈ [-pi/2, pi/2)
     """
 
     nc = prediction.shape[2] - 5 - 180  # number of classes
@@ -879,8 +879,8 @@ def strip_optimizer(f='best.pt', s=''):  # from utils.general import *; strip_op
 
 def print_mutation(results, hyp, save_dir, bucket):
     evolve_csv, results_csv, evolve_yaml = save_dir / 'evolve.csv', save_dir / 'results.csv', save_dir / 'hyp_evolve.yaml'
-    keys = ('metrics/precision', 'metrics/recall', 'metrics/mAP_0.5', 'metrics/mAP_0.5:0.95',
-            'val/box_loss', 'val/obj_loss', 'val/cls_loss') + tuple(hyp.keys())  # [results + hyps]
+    keys = ('metrics/precision', 'metrics/recall', 'metrics/HBBmAP.5', 'metrics/HBBmAP.5:.95',
+            'val/box_loss', 'val/obj_loss', 'val/cls_loss', 'val/theta_loss') + tuple(hyp.keys())  # [results + hyps]
     keys = tuple(x.strip() for x in keys)
     vals = results + tuple(hyp.values())
     n = len(keys)

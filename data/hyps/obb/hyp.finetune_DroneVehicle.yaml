@@ -1,12 +1,12 @@
 # YOLOv5 🚀 by Ultralytics, GPL-3.0 license
 
-lr0: 0.01
-lrf: 0.2
-momentum: 0.937
-weight_decay: 0.0005
-warmup_epochs: 3.0
-warmup_momentum: 0.8
-warmup_bias_lr: 0.1
+lr0: 0.0032
+lrf: 0.12
+momentum: 0.843
+weight_decay: 0.00036
+warmup_epochs: 2.0
+warmup_momentum: 0.5
+warmup_bias_lr: 0.05
 box: 0.05
 cls: 0.5
 cls_pw: 1.0
