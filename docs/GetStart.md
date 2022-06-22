@@ -64,12 +64,26 @@ python -m torch.distributed.launch --nproc_per_node 4 train.py --device 0,1,2,3
 
 2.3 Train the orignal dataset demo.
 ```shell
-python train.py --data 'data/yolov5obb_demo.yaml' --epochs 10 --batch-size 1 --img 1024 --device 0
+python train.py \
+  --weights 'weights/yolov5n_s_m_l_x.pt' \
+  --data 'data/yolov5obb_demo.yaml' \
+  --hyp 'data/hyps/obb/hyp.finetune_dota.yaml' \
+  --epochs 10 \
+  --batch-size 1 \
+  --img 1024 \
+  --device 0
 ```
 
 2.4 Train the splited dataset demo.
 ```shell
-python train.py --data 'data/yolov5obb_demo_split.yaml' --epochs 10 --batch-size 2 --img 1024 --device 0
+python train.py \
+  --weights 'weights/yolov5n_s_m_l_x.pt' \
+  --data 'data/yolov5obb_demo_split.yaml' \
+  --hyp 'data/hyps/obb/hyp.finetune_dota.yaml' \
+  --epochs 10 \
+  --batch-size 2 \
+  --img 1024 \
+  --device 0
 ```
 
 # Inferenece with pretrained models. (Splited Dataset)
@@ -77,12 +91,15 @@ This repo provides the validation/testing scripts to evaluate the trained model.
 
 Examples:
 
-Assume that you have already downloaded the checkpoints to `runs/train/yolov5m_finetune/weights`.
+Assume that you have already downloaded the checkpoints to `runs/train/yolov5m_csl_dotav1.5/weights`.
 
 1. Test yolov5-obb with single GPU. Get the HBB metrics.
 
 ```shell
-python val.py --task 'val' --device 0 --save-json --batch-size 2 --data 'data/yolov5obb_demo_split.yaml' --name 'obb_demo_split'
+python val.py \
+ --data 'data/yolov5obb_demo_split.yaml' \
+ --weights 'runs/train/yolov5m_csl_dotav1.5/weights/best.pt' \
+ --batch-size 2 --img 1024 --task 'val' --device 0 --save-json --name 'obb_demo_split'
 
                Class     Images     Labels          P          R     mAP@.5 mAP@.5:.95: 100%|██████████| 3/3 [00:02<00:00,  1.09it/s]                                        
                  all          6         68      0.921      0.914      0.966      0.776
@@ -124,12 +141,15 @@ We provide the validation/testing scripts to evaluate the trained model.
 
 Examples:
 
-Assume that you have already downloaded the checkpoints to `runs/train/yolov5m_finetune/weights`.
+Assume that you have already downloaded the checkpoints to `runs/train/yolov5m_csl_dotav1.5/weights`.
 
 1. Test yolov5-obb with single GPU. Get the HBB metrics.
 
 ```shell
-python val.py --task 'val' --device 0 --save-json --batch-size 1 --data 'data/yolov5obb_demo.yaml' --name 'obb_demo' --img 2048
+python val.py \
+ --data 'data/yolov5obb_demo.yaml' \
+ --weights 'runs/train/yolov5m_csl_dotav1.5/weights/best.pt' \
+ --batch-size 1 --img 2048 --task 'val' --device 0 --save-json --name 'obb_demo'
 
                Class     Images     Labels          P          R     mAP@.5 mAP@.5:.95: 100%|██████████| 1/1 [00:00<00:00,  1.98it/s]                                        
                  all          1         56       0.97       0.85      0.953      0.752
@@ -162,9 +182,9 @@ classaps:  [100.   0. 100.]
 # Run inference on images, videos, directories, streams, etc. Then save the detection file.
 1. image demo
 ```shell
-python detect.py --weights 'runs/train/yolov5m_finetune/weights/best.pt' \
-    --source 'dataset/dataset_demo/images/' \
-    --img 2048 --device 2 --hide-labels --hide-conf
+python detect.py --weights 'runs/train/yolov5m_csl_dotav1.5/weights/best.pt' \
+  --source 'dataset/dataset_demo/images/' \
+  --img 2048 --device 2 --conf-thres 0.25 --iou-thres 0.2 --hide-labels --hide-conf
 ```
 
 ***If you want to evaluate the result on DOTA test-dev, please zip the poly format results files and submit it to the  [evaluation server](https://captain-whu.github.io/DOTA/index.html).**
