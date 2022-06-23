@@ -184,7 +184,7 @@ classaps:  [100.   0. 100.]
 ```shell
 python detect.py --weights 'runs/train/yolov5m_csl_dotav1.5/weights/best.pt' \
   --source 'dataset/dataset_demo/images/' \
-  --img 2048 --device 2 --conf-thres 0.25 --iou-thres 0.2 --hide-labels --hide-conf
+  --img 2048 --device 0 --conf-thres 0.25 --iou-thres 0.2 --hide-labels --hide-conf
 ```
 
 ***If you want to evaluate the result on DOTA test-dev, please zip the poly format results files and submit it to the  [evaluation server](https://captain-whu.github.io/DOTA/index.html).**
