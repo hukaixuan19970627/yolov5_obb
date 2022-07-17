@@ -32,7 +32,7 @@ parent
 └── datasets
     └── DOTAv1.5
         ├── train_split_rate1.0_subsize1024_gap200
-        ├── train_split_rate1.0_subsize1024_gap200
+        ├── val_split_rate1.0_subsize1024_gap200
         └── test_split_rate1.0_subsize1024_gap200
             ├── images
                  |────1.jpg
