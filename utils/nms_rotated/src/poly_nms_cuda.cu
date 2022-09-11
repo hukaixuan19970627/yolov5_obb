@@ -1,8 +1,7 @@
 #include <ATen/ATen.h>
+#include <ATen/ceil_div.h>
 #include <ATen/cuda/CUDAContext.h>
-
-#include <THC/THC.h>
-#include <THC/THCDeviceUtils.cuh>
+#include <c10/cuda/CUDACachingAllocator.h>
 
 #include <vector>
 #include <iostream>
@@ -188,7 +187,7 @@ __global__ void poly_nms_kernel(const int n_polys, const float nms_overlap_thres
                 t |= 1ULL << i;
             }
         }
-        const int col_blocks = THCCeilDiv(n_polys, threadsPerBlock);
+        const int col_blocks = at::ceil_div(n_polys, threadsPerBlock);
         dev_mask[cur_box_idx * col_blocks + col_start] = t;
     }
 }
@@ -206,18 +205,18 @@ at::Tensor poly_nms_cuda(const at::Tensor boxes, float nms_overlap_thresh) {
 
     int boxes_num = boxes.size(0);
 
-    const int col_blocks = THCCeilDiv(boxes_num, threadsPerBlock);
+    const int col_blocks = at::ceil_div(boxes_num, threadsPerBlock);
 
     scalar_t* boxes_dev = boxes_sorted.data_ptr<scalar_t>();
 
-    THCState *state = at::globalContext().lazyInitCUDA();
+    at::globalContext().lazyInitCUDA();
 
     unsigned long long* mask_dev = NULL;
 
-    mask_dev = (unsigned long long*) THCudaMalloc(state, boxes_num * col_blocks * sizeof(unsigned long long));
+    mask_dev = (unsigned long long*) c10::cuda::CUDACachingAllocator::raw_alloc(boxes_num * col_blocks * sizeof(unsigned long long));
 
-    dim3 blocks(THCCeilDiv(boxes_num, threadsPerBlock),
-                THCCeilDiv(boxes_num, threadsPerBlock));
+    dim3 blocks(at::ceil_div(boxes_num, threadsPerBlock),
+                at::ceil_div(boxes_num, threadsPerBlock));
     dim3 threads(threadsPerBlock);
     poly_nms_kernel<<<blocks, threads, 0, at::cuda::getCurrentCUDAStream()>>>(boxes_num,
                                         nms_overlap_thresh,
@@ -225,7 +224,7 @@ at::Tensor poly_nms_cuda(const at::Tensor boxes, float nms_overlap_thresh) {
                                         mask_dev);
     
     std::vector<unsigned long long> mask_host(boxes_num * col_blocks);
-    THCudaCheck(cudaMemcpyAsync(
+    C10_CUDA_CHECK(cudaMemcpyAsync(
 			    &mask_host[0],
                             mask_dev,
                             sizeof(unsigned long long) * boxes_num * col_blocks,
@@ -253,7 +252,7 @@ at::Tensor poly_nms_cuda(const at::Tensor boxes, float nms_overlap_thresh) {
         }
     }
 
-    THCudaFree(state, mask_dev);
+    c10::cuda::CUDACachingAllocator::raw_delete(mask_dev);
 
     return order_t.index({
         keep.narrow(/*dim=*/0, /*start=*/0, /*length=*/num_to_keep).to(
