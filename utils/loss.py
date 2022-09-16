@@ -211,7 +211,7 @@ class ComputeLoss:
         # ttheta, tgaussian_theta = [], []
         tgaussian_theta = []
         # gain = torch.ones(7, device=targets.device)  # normalized to gridspace gain
-        feature_wh = torch.ones(2, device=targets.device)  # feature_wh
+        feature_wh = torch.ones(2, device=targets.device).long()  # feature_wh
         ai = torch.arange(na, device=targets.device).float().view(na, 1).repeat(1, nt)  # same as .repeat_interleave(nt)
         # targets (tensor): (n_gt_all_batch, c) -> (na, n_gt_all_batch, c) -> (na, n_gt_all_batch, c+1)
         # targets (tensor): (na, n_gt_all_batch, [img_index, clsid, cx, cy, l, s, theta, gaussian_θ_labels, anchor_index]])
@@ -226,7 +226,7 @@ class ComputeLoss:
         for i in range(self.nl):
             anchors = self.anchors[i] 
             # gain[2:6] = torch.tensor(p[i].shape)[[3, 2, 3, 2]]  # xyxy gain=[1, 1, w, h, w, h, 1, 1]
-            feature_wh[0:2] = torch.tensor(p[i].shape)[[3, 2]]  # xyxy gain=[w_f, h_f]
+            feature_wh[0:2] = torch.tensor(p[i].shape)[[3, 2]].long()  # xyxy gain=[w_f, h_f]
 
             # Match targets to anchors
             # t = targets * gain # xywh featuremap pixel
@@ -240,9 +240,9 @@ class ComputeLoss:
                 t = t[j]  # filter; Tensor.size(n_filter1, c+1)
 
                 # Offsets
-                gxy = t[:, 2:4]  # grid xy; (n_filter1, 2)
+                gxy = t[:, 2:4].long()  # grid xy; (n_filter1, 2)
                 # gxi = gain[[2, 3]] - gxy  # inverse
-                gxi = feature_wh[[0, 1]] - gxy  # inverse
+                gxi = (feature_wh[[0, 1]] - gxy).long()  # inverse
                 j, k = ((gxy % 1 < g) & (gxy > 1)).T
                 l, m = ((gxi % 1 < g) & (gxi > 1)).T
                 j = torch.stack((torch.ones_like(j), j, k, l, m)) # (5, n_filter1)
@@ -254,17 +254,17 @@ class ComputeLoss:
 
             # Define, t (tensor): (n_filter2, [img_index, clsid, cx, cy, l, s, theta, gaussian_θ_labels, anchor_index])
             b, c = t[:, :2].long().T  # image, class; (n_filter2)
-            gxy = t[:, 2:4]  # grid xy
-            gwh = t[:, 4:6]  # grid wh
+            gxy = t[:, 2:4].long()  # grid xy
+            gwh = t[:, 4:6].long()  # grid wh
             # theta = t[:, 6]
-            gaussian_theta_labels = t[:, 7:-1]
+            gaussian_theta_labels = t[:, 7:-1].long()
             gij = (gxy - offsets).long()
             gi, gj = gij.T  # grid xy indices
 
             # Append
             a = t[:, -1].long()  # anchor indices 取整
             # indices.append((b, a, gj.clamp_(0, gain[3] - 1), gi.clamp_(0, gain[2] - 1)))  # image, anchor, grid indices
-            indices.append((b, a, gj.clamp_(0, feature_wh[1] - 1), gi.clamp_(0, feature_wh[0] - 1)))  # image, anchor, grid indices
+            indices.append((b, a, gj.clamp_(0, feature_wh[1] - 1).long(), gi.clamp_(0, feature_wh[0] - 1).long()))  # image, anchor, grid indices
             tbox.append(torch.cat((gxy - gij, gwh), 1))  # box
             anch.append(anchors[a])  # anchors
             tcls.append(c)  # class
