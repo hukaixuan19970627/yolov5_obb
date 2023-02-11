@@ -22,10 +22,10 @@ from torch.cuda import amp
 
 from utils.datasets import exif_transpose, letterbox
 from utils.general import (LOGGER, check_requirements, check_suffix, check_version, colorstr, increment_path,
-                           make_divisible, non_max_suppression, scale_coords, xywh2xyxy, xyxy2xywh)
+                           make_divisible, non_max_suppression, non_max_suppression_obb, scale_coords, scale_polys, xywh2xyxy, xyxy2xywh)
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import copy_attr, time_sync
-
+from utils.rboxs_utils import rbox2poly, poly2hbb
 
 def autopad(k, p=None):  # kernel, padding
     # Pad to 'same'
@@ -515,13 +515,17 @@ class AutoShape(nn.Module):
             t.append(time_sync())
 
             # Post-process
-            y = non_max_suppression(y if self.dmb else y[0], self.conf, iou_thres=self.iou, classes=self.classes,
-                                    agnostic=self.agnostic, multi_label=self.multi_label, max_det=self.max_det)  # NMS
-            for i in range(n):
-                scale_coords(shape1, y[i][:, :4], shape0[i])
+            y = non_max_suppression_obb(y, self.conf, self.iou, self.classes, self.agnostic, self.multi_label, max_det=self.max_det)
+            pred = []
+            for i, det in enumerate(y):
+                pred_poly = rbox2poly(det[:, :5])
+                if len(det):
+                    pred_poly = scale_polys(shape1, pred_poly, shape0[i])
+                    det = torch.cat((pred_poly, det[:, -2:]), dim=1)
+                pred.append(det)
 
             t.append(time_sync())
-            return Detections(imgs, y, files, t, self.names, x.shape)
+            return Detections(imgs, pred, files, t, self.names, x.shape)
 
 
 class Detections:
@@ -529,14 +533,16 @@ class Detections:
     def __init__(self, imgs, pred, files, times=(0, 0, 0, 0), names=None, shape=None):
         super().__init__()
         d = pred[0].device  # device
-        gn = [torch.tensor([*(im.shape[i] for i in [1, 0, 1, 0]), 1, 1], device=d) for im in imgs]  # normalizations
+        gn = [torch.tensor([*(im.shape[i] for i in [1, 0, 1, 0])], device=d) for im in imgs]  # normalizations
         self.imgs = imgs  # list of images as numpy arrays
         self.pred = pred  # list of tensors pred[0] = (xyxy, conf, cls)
         self.names = names  # class names
         self.files = files  # image filenames
         self.times = times  # profiling times
-        self.xyxy = pred  # xyxy pixels
-        self.xywh = [xyxy2xywh(x) for x in pred]  # xywh pixels
+        self.polys = [p[:, :8] for p in pred]
+        self.xyxy = [poly2hbb(p[:, :8]) for p in pred]
+        self.xywh = [poly2hbb(p[:, :8]) for p in pred]  # xywh pixels
+        self.xyxy = [xywh2xyxy(x) for x in self.xywh]  # xyxy pixels
         self.xyxyn = [x / g for x, g in zip(self.xyxy, gn)]  # xyxy normalized
         self.xywhn = [x / g for x, g in zip(self.xywh, gn)]  # xywh normalized
         self.n = len(self.pred)  # number of images (batch size)
