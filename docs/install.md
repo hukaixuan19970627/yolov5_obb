@@ -5,7 +5,7 @@
 * PyTorch ≥ 1.7 
 * CUDA 9.0 or higher
 
-I have tested the following versions of OS and softwares：
+I have tested the following versions of OS and software：
 * OS：Ubuntu 16.04/18.04
 * CUDA: 10.0/10.1/10.2/11.3
 

@@ -20,12 +20,12 @@ def choose_best_pointorder_fit_another(poly1, poly2):
     y3 = poly1[5]
     x4 = poly1[6]
     y4 = poly1[7]
-    combinate = [np.array([x1, y1, x2, y2, x3, y3, x4, y4]), np.array([x2, y2, x3, y3, x4, y4, x1, y1]),
+    combined = [np.array([x1, y1, x2, y2, x3, y3, x4, y4]), np.array([x2, y2, x3, y3, x4, y4, x1, y1]),
                  np.array([x3, y3, x4, y4, x1, y1, x2, y2]), np.array([x4, y4, x1, y1, x2, y2, x3, y3])]
     dst_coordinate = np.array(poly2)
-    distances = np.array([np.sum((coord - dst_coordinate)**2) for coord in combinate])
+    distances = np.array([np.sum((coord - dst_coordinate)**2) for coord in combined])
     sorted = distances.argsort()
-    return combinate[sorted[0]]
+    return combined[sorted[0]]
 
 def cal_line_length(point1, point2):
     return math.sqrt( math.pow(point1[0] - point2[0], 2) + math.pow(point1[1] - point2[1], 2))

@@ -26,19 +26,19 @@ def DroneVehicle2DOTA(xmlpath, txtpath, extractclassname, specified_class):
             if cls == None:
                 continue
             cls = cls.text
-            diffcult = obj.find('difficult')
-            diffcult = int(diffcult.text) if diffcult != None else 0
+            difficult = obj.find('difficult')
+            difficult = int(difficult.text) if difficult != None else 0
 
-            if diffcult < 2:
+            if difficult < 2:
                 # cls = cls.replace(' ', '_')
                 cls = specified_class
                 polygon = obj.find('polygon')
                 if polygon == None:
                     continue
                 polygon = [int(polygon.find(x).text) for x in ('x1', 'y1', 'x2', 'y2', 'x3', 'y3', 'x4', 'y4')]
-                out_file.write(" ".join([str(a) for a in (*polygon, cls, diffcult)]) + '\n')
+                out_file.write(" ".join([str(a) for a in (*polygon, cls, difficult)]) + '\n')
             else:
-                print(f'{cls} is not in the extractclassname or diffcult is {diffcult}')
+                print(f'{cls} is not in the extractclassname or difficult is {difficult}')
 
 if __name__ == "__main__":
     xmlpath = ['/media/test/DroneVehicle/val/raw/vallabel',

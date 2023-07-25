@@ -977,7 +977,7 @@ def verify_image_label(args):
                 #     l = np.concatenate((classes.reshape(-1, 1), segments2boxes(segments)), 1)  # (cls, xywh)
                 l_ = []
                 for label in labels:
-                    if label[-1] == "2": # diffcult
+                    if label[-1] == "2": # difficult
                         continue
                     cls_id = cls_name_list.index(label[8])
                     l_.append(np.concatenate((cls_id, label[:8]), axis=None))

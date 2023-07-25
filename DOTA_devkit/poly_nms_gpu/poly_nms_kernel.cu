@@ -270,7 +270,7 @@ void _set_device(int device_id) {
         return;
     }
    // The call to cudaSetDevice must come before any calls to Get, which
-   // may perform initailization using the GPU.
+   // may perform initialization using the GPU.
    CUDA_CHECK(cudaSetDevice(device_id));
 }
 

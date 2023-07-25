@@ -1,9 +1,10 @@
-import os
-import math
 import argparse
+import math
+import os
 import os.path as osp
 
 import numpy as np
+
 
 def cal_line_length(point1, point2):
     return math.sqrt(math.pow(point1[0] - point2[0], 2) + math.pow(point1[1] - point2[1], 2))
@@ -14,23 +15,23 @@ def get_best_begin_point_single(coordinate):
     ymin = min(y1, y2, y3, y4)
     xmax = max(x1, x2, x3, x4)
     ymax = max(y1, y2, y3, y4)
-    combinate = [[[x1, y1], [x2, y2], [x3, y3], [x4, y4]], [[x2, y2], [x3, y3], [x4, y4], [x1, y1]],
+    combined = [[[x1, y1], [x2, y2], [x3, y3], [x4, y4]], [[x2, y2], [x3, y3], [x4, y4], [x1, y1]],
                  [[x3, y3], [x4, y4], [x1, y1], [x2, y2]], [[x4, y4], [x1, y1], [x2, y2], [x3, y3]]]
     dst_coordinate = [[xmin, ymin], [xmax, ymin], [xmax, ymax], [xmin, ymax]]
     force = 100000000.0
     force_flag = 0
     for i in range(4):
-        temp_force = cal_line_length(combinate[i][0], dst_coordinate[0]) \
-            + cal_line_length(combinate[i][1], dst_coordinate[1]) \
-            + cal_line_length(combinate[i][2], dst_coordinate[2]) \
-            + cal_line_length(combinate[i][3], dst_coordinate[3])
+        temp_force = cal_line_length(combined[i][0], dst_coordinate[0]) \
+            + cal_line_length(combined[i][1], dst_coordinate[1]) \
+            + cal_line_length(combined[i][2], dst_coordinate[2]) \
+            + cal_line_length(combined[i][3], dst_coordinate[3])
         if temp_force < force:
             force = temp_force
             force_flag = i
     if force_flag != 0:
         pass
         # print("choose one direction!")
-    return np.array(combinate[force_flag]).reshape(8)
+    return np.array(combined[force_flag]).reshape(8)
 
 def poly2rbox_single(poly):
     """
