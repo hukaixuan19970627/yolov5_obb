@@ -121,7 +121,7 @@ class WandbLogger():
         """
         - Initialize WandbLogger instance
         - Upload dataset if opt.upload_dataset is True
-        - Setup trainig processes if job_type is 'Training'
+        - Setup training processes if job_type is 'Training'
 
         arguments:
         opt (namespace) -- Commandline arguments for this run
@@ -266,7 +266,7 @@ class WandbLogger():
         alias (str)-- alias of the artifact to be download/used for training
 
         returns:
-        (str, wandb.Artifact) -- path of the downladed dataset and it's corresponding artifact object if dataset
+        (str, wandb.Artifact) -- path of the downloaded dataset and it's corresponding artifact object if dataset
         is found otherwise returns (None, None)
         """
         if isinstance(path, str) and path.startswith(WANDB_ARTIFACT_PREFIX):
@@ -398,7 +398,7 @@ class WandbLogger():
         returns:
         dataset artifact to be logged or used
         """
-        # TODO: Explore multiprocessing to slpit this loop parallely| This is essential for speeding up the the logging
+        # TODO: Explore multiprocessing to slpit this loop parallelly| This is essential for speeding up the the logging
         artifact = wandb.Artifact(name=name, type="dataset")
         img_files = tqdm([dataset.path]) if isinstance(dataset.path, str) and Path(dataset.path).is_dir() else None
         img_files = tqdm(dataset.img_files) if not img_files else img_files

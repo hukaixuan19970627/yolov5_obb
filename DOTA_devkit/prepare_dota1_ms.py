@@ -21,7 +21,7 @@ def prepare_multi_scale_data(src_path, dst_path, gap=200, subsize=1024, scales=[
     gap: overlapping area
     subsize: size of chip image
     scales: multi-scale settings
-    num_process: num of processer
+    num_process: num of processors
     """
     dst_train_path = osp.join(dst_path, 'train_split')
     dst_val_path = osp.join(dst_path, 'val_split')

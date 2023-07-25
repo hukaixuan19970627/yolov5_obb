@@ -71,7 +71,7 @@ def customize_compiler_for_nvcc(self):
     If you subclass UnixCCompiler, it's not trivial to get your subclass
     injected in, and still have the right customizations (i.e.
     distutils.sysconfig.customize_compiler) run on it. So instead of going
-    the OO route, I have this. Note, it's kindof like a wierd functional
+    the OO route, I have this. Note, it's kindof like a weird functional
     subclassing going on."""
 
     # tell the compiler it can processes .cu

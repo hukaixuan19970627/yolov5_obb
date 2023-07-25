@@ -1,4 +1,4 @@
-#The code is used for visulization, inspired from cocoapi
+#The code is used for visualization, inspired from cocoapi
 #  Licensed under the Simplified BSD License [see bsd.txt]
 
 import os

@@ -6,9 +6,9 @@ This page provides basic usage about yolov5-obb. For installation instructions, 
 
 **1. Prepare custom dataset files**
 
-1.1 Make sure the labels format is [poly classname diffcult], e.g., You can set **diffcult=0**
+1.1 Make sure the labels format is [poly classname difficult], e.g., You can set **difficult=0**
 ```
-  x1      y1       x2        y2       x3       y3       x4       y4       classname     diffcult
+  x1      y1       x2        y2       x3       y3       x4       y4       classname     difficult
 
 1686.0   1517.0   1695.0   1511.0   1711.0   1535.0   1700.0   1541.0   large-vehicle      1
 ```
@@ -20,7 +20,7 @@ This page provides basic usage about yolov5-obb. For installation instructions, 
 cd yolov5_obb
 python DOTA_devkit/ImgSplit_multi_process.py
 ```
-or Use the orignal dataset. 
+or Use the original dataset. 
 ```shell
 cd yolov5_obb
 ```
@@ -46,7 +46,7 @@ parent
 ```
 
 **Note:**
-* DOTA is a high resolution image dataset, so it needs to be splited before training/testing to get better performance.
+* DOTA is a high resolution image dataset, so it needs to be split before training/testing to get better performance.
 
 **2. Train**
 
@@ -62,7 +62,7 @@ python train.py --device 3
 python -m torch.distributed.launch --nproc_per_node 4 train.py --device 0,1,2,3
 ```
 
-2.3 Train the orignal dataset demo.
+2.3 Train the original dataset demo.
 ```shell
 python train.py \
   --weights 'weights/yolov5n_s_m_l_x.pt' \
@@ -74,7 +74,7 @@ python train.py \
   --device 0
 ```
 
-2.4 Train the splited dataset demo.
+2.4 Train the split dataset demo.
 ```shell
 python train.py \
   --weights 'weights/yolov5n_s_m_l_x.pt' \
@@ -86,7 +86,7 @@ python train.py \
   --device 0
 ```
 
-# Inferenece with pretrained models. (Splited Dataset)
+# Inference with pretrained models. (Split Dataset)
 This repo provides the validation/testing scripts to evaluate the trained model.
 
 Examples:

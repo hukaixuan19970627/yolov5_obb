@@ -10,11 +10,9 @@
     search for PATH_TO_BE_CONFIGURED to config the paths
     Note, the evaluation is on the large scale images
 """
-import xml.etree.ElementTree as ET
-import os
 #import cPickle
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 def parse_gt(filename):
     objects = []
@@ -26,9 +24,9 @@ def parse_gt(filename):
             if len(splitline) < 9:
                 continue
             object_struct['name'] = splitline[8]
-            if (len(splitline) == 9):
+            if len(splitline) == 9:
                 object_struct['difficult'] = 0
-            elif (len(splitline) == 10):
+            elif len(splitline) == 10:
                 object_struct['difficult'] = int(splitline[9])
             # object_struct['difficult'] = 0
             object_struct['bbox'] = [int(float(splitline[0])),
@@ -162,7 +160,7 @@ def voc_eval(detpath,
 
     # sort by confidence
     sorted_ind = np.argsort(-confidence)
-    sorted_scores = np.sort(-confidence)
+    #sorted_scores = np.sort(-confidence)
 
     #print('check sorted_scores: ', sorted_scores)
     #print('check sorted_ind: ', sorted_ind)
@@ -243,7 +241,7 @@ def main():
          'tennis-court', 'basketball-court', 'storage-tank',  'soccer-ball-field', 'roundabout', 'harbor',
          'swimming-pool', 'helicopter', 'container-crane', 'airport', 'helipad']
     classaps = []
-    map = 0
+    main_map = 0
     for classname in classnames:
         print('classname:', classname)
         rec, prec, ap = voc_eval(detpath,
@@ -252,7 +250,7 @@ def main():
              classname,
              ovthresh=0.5,
              use_07_metric=True)
-        map = map + ap
+        main_map = main_map + ap
         #print('rec: ', rec, 'prec: ', prec, 'ap: ', ap)
         print('ap: ', ap)
         classaps.append(ap)
@@ -263,8 +261,8 @@ def main():
         # plt.ylabel('precision')
         # plt.plot(rec, prec)
         # plt.show()
-    map = map/len(classnames)
-    print('map:', map)
+    main_map = main_map / len(classnames)
+    print('map:', main_map)
     classaps = 100*np.array(classaps)
     print('classaps: ', classaps)
 if __name__ == '__main__':
