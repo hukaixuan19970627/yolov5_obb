@@ -398,6 +398,8 @@ class LoadImagesAndLabels(Dataset):
         self.path = path
         self.albumentations = Albumentations() if augment else None
         self.cls_names = cls_names
+        if isinstance(cls_names, dict): # Fixed [WARNING in command "val.py with --task test"]: https://github.com/hukaixuan19970627/yolov5_obb/issues/424
+          self.cls_names = list(cls_names.values())
 
         try:
             f = []  # image files
