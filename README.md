@@ -43,6 +43,14 @@ This repo is based on [yolov5](https://github.com/ultralytics/yolov5).
 
 And this repo has been rebuilt, Please see [GetStart.md](./docs/GetStart.md) for the Oriented Detection latest basic usage.
 
+# Learning Resources
+
+Below are some learning resources prepared by the community that you can use to start working with YOLOv5-OBB:
+
+- [How to train a YOLOv5-OBB model (Colab notebook)](https://colab.research.google.com/drive/16nRwsioEYqWFLBF5VpT_NvELeOeupURM#scrollTo=1NZxhXTMWvek)
+- [Video guide showing how to train a YOLOv5-OBB model](https://www.youtube.com/watch?v=iRkCNo9-slY)
+- [Introduction to YOLOv5-OBB](https://blog.roboflow.com/yolov5-for-oriented-object-detection/)
+
 #  Acknowledgements
 I have used utility functions from other wonderful open-source projects. Espeicially thank the authors of:
 
